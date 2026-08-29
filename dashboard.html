@@ -220,7 +220,7 @@
                     </select>
                     <select id="filterStatus" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/20 dark:focus:border-primary/50 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
                         <option value="">Semua Status</option>
-                        <option value="belum" selected>Belum Verifikasi</option>
+                        <option value="belum">Belum Verifikasi</option>
                         <option value="selesai">Sudah Verifikasi</option>
                     </select>
                     <select id="filterWilayah" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/20 dark:focus:border-primary/50 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
@@ -316,6 +316,12 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         feather.replace();
+
+        const currentUserRole = localStorage.getItem('userRole') || '';
+        const statusFilter = document.getElementById('filterStatus');
+        if (statusFilter) {
+            statusFilter.value = currentUserRole.toLowerCase() === 'admin' ? '' : 'belum';
+        }
 
         if (API_URL === "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DI_SINI") {
             showError("Silakan masukkan URL Web App Apps Script.");
