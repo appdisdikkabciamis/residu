@@ -438,17 +438,7 @@
             const matchedRow = globalData.find(r => (r['Desa/Kelurahan'] || r['Desa'] || r['Kelurahan']) === fDesa);
             if (matchedRow) {
                 fKec = matchedRow['Kecamatan'] || fKec;
-                fWil = matchedRow['Wilayah'] || fWil;
                 kecSelect.value = fKec;
-                wilSelect.value = fWil;
-            }
-        }
-        
-        if ((source === 'kecamatan' || source === 'desa') && fKec !== "") {
-            const matchedRow = globalData.find(r => r['Kecamatan'] === fKec);
-            if (matchedRow) {
-                fWil = matchedRow['Wilayah'] || fWil;
-                wilSelect.value = fWil;
             }
         }
 
