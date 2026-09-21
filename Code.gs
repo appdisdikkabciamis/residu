@@ -10,29 +10,56 @@ function doGet(e) {
 }
 
 function getDashboardData() {
-  // ID Spreadsheet dari URL yang Anda berikan
   var id = '1bOxsmyW3w_hQgtUmYHhXvQWLwb-VgZObu9mRluqcqbw';
   var ss = SpreadsheetApp.openById(id);
-  var sheet = ss.getSheetByName('LTM+DO');
+  var sheets = ss.getSheets();
+  var dateSheets = [];
+  var dateRegex = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
   
-  if (!sheet) {
-    return { error: 'Sheet LTM+DO tidak ditemukan' };
+  for (var i = 0; i < sheets.length; i++) {
+    var sName = sheets[i].getName();
+    if (dateRegex.test(sName)) {
+      dateSheets.push({ name: sName, sheet: sheets[i] });
+    }
   }
   
-  var data = sheet.getDataRange().getValues();
-  var headers = data[0];
-  var rows = data.slice(1);
+  if (dateSheets.length === 0) {
+    return { error: 'Tidak ada sheet dengan format tanggal (DD/MM/YYYY) yang ditemukan' };
+  }
   
-  var result = [];
-  for (var i = 0; i < rows.length; i++) {
-    // Abaikan baris kosong (misalnya jika NPSN atau Nama Sekolah kosong)
-    if (!rows[i][0] && !rows[i][2]) continue;
+  // Sort by date (oldest first)
+  dateSheets.sort(function(a, b) {
+    var pA = a.name.split('/');
+    var dA = new Date(pA[2], pA[1]-1, pA[0]);
+    var pB = b.name.split('/');
+    var dB = new Date(pB[2], pB[1]-1, pB[0]);
+    return dA - dB;
+  });
+  
+  var history = [];
+  for (var s = 0; s < dateSheets.length; s++) {
+    var sheetData = dateSheets[s].sheet.getDataRange().getValues();
+    if (sheetData.length < 2) continue;
     
-    var obj = {};
-    for (var j = 0; j < headers.length; j++) {
-      obj[headers[j]] = rows[i][j];
+    var headers = sheetData[0];
+    var rows = sheetData.slice(1);
+    var result = [];
+    
+    for (var i = 0; i < rows.length; i++) {
+      // Abaikan baris kosong
+      if (!rows[i][0] && !rows[i][2]) continue;
+      
+      var obj = {};
+      for (var j = 0; j < headers.length; j++) {
+        obj[headers[j]] = rows[i][j];
+      }
+      result.push(obj);
     }
-    result.push(obj);
+    
+    history.push({
+      date: dateSheets[s].name,
+      data: result
+    });
   }
   
   var updateDateStr = "";
@@ -78,7 +105,7 @@ function getDashboardData() {
     }
   }
   
-  return JSON.stringify({ data: result, updateDate: updateDateStr });
+  return JSON.stringify({ data: history[history.length - 1].data, history: history, updateDate: updateDateStr });
 }
 
 function doPost(e) {

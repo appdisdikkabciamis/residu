@@ -197,6 +197,16 @@
     <!-- Bottom Section (2 columns) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
+        <!-- Chart Card -->
+        <div class="lg:col-span-12 bg-white dark:bg-slate-800 rounded-[20px] p-8 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col mb-2">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-[17px] font-bold text-dark dark:text-slate-100 shrink-0">Grafik Pergerakan Belum Verifikasi</h3>
+            </div>
+            <div class="w-full h-[300px] relative">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+        
         <!-- Table Card -->
         <div class="lg:col-span-12 bg-white dark:bg-slate-800 rounded-[20px] p-8 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col">
             <div class="flex flex-col mb-6 gap-4">
@@ -296,6 +306,8 @@
 
 <script>
     let globalData = [];
+    let globalHistory = [];
+    let trendChart = null;
     let currentPage = 1;
     let rowsPerPage = 10;
     let showExtraColumns = false;
@@ -395,6 +407,9 @@
             const isDark = document.documentElement.classList.contains('dark');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
             updateThemeIcon();
+            if (trendChart) {
+                trendChart.update(); // trigger chart redraw for theme update
+            }
         });
 
         // Set Welcome Name
@@ -536,12 +551,14 @@
             const parsed = JSON.parse(jsonString);
             
             let data = [];
+            let historyData = [];
             let updateDateStr = "";
 
             if (Array.isArray(parsed)) {
                 data = parsed; // Legacy support
             } else if (parsed.data) {
                 data = parsed.data;
+                historyData = parsed.history || [];
                 updateDateStr = parsed.updateDate || "";
             } else {
                 showError(parsed.error || "Format data tidak valid.");
@@ -557,9 +574,16 @@
                     const k = row['Kecamatan'] ? row['Kecamatan'].toString().trim().toLowerCase() : '';
                     return k === normUser || k.includes(normUser);
                 });
+                historyData.forEach(h => {
+                    h.data = h.data.filter(row => {
+                        const k = row['Kecamatan'] ? row['Kecamatan'].toString().trim().toLowerCase() : '';
+                        return k === normUser || k.includes(normUser);
+                    });
+                });
             }
 
             globalData = data;
+            globalHistory = historyData;
 
             if (updateDateStr) {
                 document.getElementById('updateDate').innerText = updateDateStr;
@@ -567,7 +591,6 @@
                 const dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
                 document.getElementById('updateDate').innerText = new Date().toLocaleDateString('id-ID', dateOptions);
             }
-
 
             populateFilters(data);
             
@@ -612,6 +635,7 @@
 
         data.forEach(row => {
             let t = parseInt(row['Total Keseluruhan']) || 0;
+            
             let sudahLTM = parseInt(row['Sudah Verifikasi (LTM)']) || 0;
             let sudahDO = parseInt(row['Sudah Verifikasi (DO)']) || 0;
             let sudahLTMDO = parseInt(row['Sudah Verifikasi (LTM+DO)']) || 0;
@@ -745,8 +769,38 @@
             return matchesSearch && matchesWil && matchesKec && matchesDesa && matchesStat;
         });
 
+        let filteredHistory = [];
+        if (globalHistory) {
+            filteredHistory = globalHistory.map(h => {
+                const hFiltered = h.data.filter(row => {
+                    const matchesSearch = term === '' || 
+                        (row['NPSN'] && row['NPSN'].toString().toLowerCase().includes(term)) ||
+                        (row['Nama Sekolah'] && row['Nama Sekolah'].toString().toLowerCase().includes(term));
+                    
+                    const rWil = row['Wilayah'] || '';
+                    const rKec = row['Kecamatan'] || '';
+                    const rDesa = row['Desa/Kelurahan'] || row['Desa'] || row['Kelurahan'] || '';
+                    
+                    const matchesWil = fWil === "" || rWil === fWil;
+                    const matchesKec = fKec === "" || rKec === fKec;
+                    const matchesDesa = fDesa === "" || rDesa === fDesa;
+
+                    let matchesStat = true;
+                    if (fStat === 'belum') {
+                        matchesStat = (parseInt(row['Belum Verifikasi (LTM+DO)']) || 0) > 0;
+                    } else if (fStat === 'selesai') {
+                        matchesStat = (parseInt(row['Belum Verifikasi (LTM+DO)']) || 0) === 0;
+                    }
+                    
+                    return matchesSearch && matchesWil && matchesKec && matchesDesa && matchesStat;
+                });
+                return { date: h.date, data: hFiltered };
+            });
+        }
+        
         const isFirstRender = typeof window.kpiRendered === 'undefined';
         calculateKPIs(filteredData, !isFirstRender);
+        renderChart(filteredHistory);
         window.kpiRendered = true;
 
         const totalRows = filteredData.length;
@@ -880,6 +934,100 @@
 
         element.classList.remove('bg-white', 'border-cardBorder', 'hover:bg-gray-50', 'dark:bg-slate-800', 'dark:border-slate-700', 'dark:hover:bg-slate-750');
         element.classList.add('bg-[#E8F2EF]', 'border-transparent', 'hover:bg-[#dcece7]', 'dark:bg-emerald-900/30', 'dark:hover:bg-emerald-900/50', 'dark:border-transparent');
+    }
+
+    function renderChart(history) {
+        if (!history || history.length === 0) return;
+        
+        const labels = history.map(h => h.date);
+        
+        const dataBelumKeduanya = [];
+        const dataSudahKeduanya = [];
+
+        history.forEach(h => {
+            let belumKeduanya = 0;
+            let sudahKeduanya = 0;
+            
+            h.data.forEach(row => {
+                let t = parseInt(row['Total Keseluruhan']) || 0;
+                
+                let sudahLTMDO = parseInt(row['Sudah Verifikasi (LTM+DO)']) || 0;
+                let bLTMDO = row['Belum Verifikasi (LTM+DO)'] !== undefined ? parseInt(row['Belum Verifikasi (LTM+DO)']) : (t - sudahLTMDO);
+
+                belumKeduanya += bLTMDO;
+                sudahKeduanya += sudahLTMDO;
+            });
+            
+            dataBelumKeduanya.push(belumKeduanya);
+            dataSudahKeduanya.push(sudahKeduanya);
+        });
+
+        const ctx = document.getElementById('trendChart').getContext('2d');
+        const isDark = document.documentElement.classList.contains('dark');
+        const textColor = isDark ? '#f1f5f9' : '#1C2633';
+        const gridColor = isDark ? '#334155' : '#e2e8f0';
+
+        if (trendChart) {
+            trendChart.data.labels = labels;
+            trendChart.data.datasets[0].data = dataBelumKeduanya;
+            trendChart.data.datasets[1].data = dataSudahKeduanya;
+            trendChart.options.scales.x.ticks.color = textColor;
+            trendChart.options.scales.y.ticks.color = textColor;
+            trendChart.options.scales.x.grid.color = gridColor;
+            trendChart.options.scales.y.grid.color = gridColor;
+            trendChart.options.plugins.legend.labels.color = textColor;
+            trendChart.update();
+        } else {
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Belum Verifikasi (LTM+DO)',
+                            data: dataBelumKeduanya,
+                            borderColor: '#ef4444',
+                            backgroundColor: '#ef444420',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: true
+                        },
+                        {
+                            label: 'Sudah Verifikasi (LTM+DO)',
+                            data: dataSudahKeduanya,
+                            borderColor: '#118263', // NevBank Green
+                            backgroundColor: '#11826320',
+                            borderWidth: 2,
+                            tension: 0.3,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            ticks: { color: textColor, font: { family: 'Plus Jakarta Sans', weight: 'bold' } },
+                            grid: { color: gridColor, drawBorder: false }
+                        },
+                        y: {
+                            ticks: { color: textColor, font: { family: 'Plus Jakarta Sans', weight: 'bold' } },
+                            grid: { color: gridColor, drawBorder: false },
+                            beginAtZero: false
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: textColor,
+                                font: { family: 'Plus Jakarta Sans', weight: 'bold' }
+                            }
+                        }
+                    }
+                }
+            });
+        }
     }
 </script>
 </body>
