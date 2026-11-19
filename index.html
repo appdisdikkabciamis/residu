@@ -60,7 +60,8 @@
 <body class="relative min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
 
     <!-- Top Blue Dotted Banner Background (Interactive Dots) -->
-    <div id="heroBanner" class="login-hero-bg fixed inset-x-0 top-0 h-[42vh] z-0 pointer-events-none transition-colors duration-300 overflow-hidden">
+    <div id="heroBanner"
+        class="login-hero-bg fixed inset-x-0 top-0 h-[42vh] z-0 pointer-events-none transition-colors duration-300 overflow-hidden">
         <canvas id="heroDotsCanvas" class="w-full h-full block"></canvas>
     </div>
 
@@ -68,9 +69,13 @@
         class="relative z-10 w-full max-w-[400px] bg-white dark:bg-slate-800 rounded-2xl p-7 shadow-[0_14px_40px_rgba(15,45,94,0.12)] border border-gray-100 dark:border-slate-700">
         <!-- Logo Header -->
         <div class="flex flex-col items-center mb-7">
-            <div class="w-[52px] h-[52px] rounded-[13px] bg-[#1455A6] text-white flex items-center justify-center shadow-md mb-3.5">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-                    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path>
+            <div
+                class="w-[52px] h-[52px] rounded-[13px] bg-[#1455A6] text-white flex items-center justify-center shadow-md mb-3.5">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                    <path
+                        d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5">
+                    </path>
                     <path d="M9 18h6"></path>
                     <path d="M10 22h4"></path>
                     <path d="M9.5 8.5l1.8 1.8 3.2-3.3"></path>
@@ -155,32 +160,37 @@
         }
         applyTheme();
 
-        // Interactive & Animated Dots on Blue Banner
+        // Interactive & Animated Dots on Blue Banner (Iframe & Google Sites Ready)
         (function initHeroDots() {
             const canvas = document.getElementById('heroDotsCanvas');
             const banner = document.getElementById('heroBanner');
             if (!canvas || !banner) return;
             const ctx = canvas.getContext('2d');
             const SPACING = 24;
-            const INFLUENCE_RADIUS = 115;
-            const MAX_PUSH = 16;
+            const INFLUENCE_RADIUS = 120;
+            const MAX_PUSH = 18;
             let dots = [];
             let width = 0;
             let height = 0;
             let dpr = window.devicePixelRatio || 1;
             const mouse = { x: -9999, y: -9999 };
+            const startTime = performance.now();
 
             function buildGrid() {
                 dpr = window.devicePixelRatio || 1;
-                width = banner.clientWidth;
-                height = banner.clientHeight;
+                const newW = banner.clientWidth || window.innerWidth || 800;
+                const newH = banner.clientHeight || Math.round((window.innerHeight || 600) * 0.42);
+                if (newW <= 0 || newH <= 0) return;
+
+                width = newW;
+                height = newH;
                 canvas.width = width * dpr;
                 canvas.height = height * dpr;
                 ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
                 dots = [];
-                const cols = Math.ceil(width / SPACING) + 1;
-                const rows = Math.ceil(height / SPACING) + 1;
+                const cols = Math.ceil(width / SPACING) + 2;
+                const rows = Math.ceil(height / SPACING) + 2;
                 const offsetX = (width - (cols - 1) * SPACING) / 2;
                 const offsetY = (height - (rows - 1) * SPACING) / 2;
 
@@ -195,35 +205,54 @@
                             y: oy,
                             vx: 0,
                             vy: 0,
-                            phase: (c * 0.35) + (r * 0.45)
+                            phaseX: (c * 0.45) + (r * 0.25),
+                            phaseY: (c * 0.25) + (r * 0.5)
                         });
                     }
                 }
             }
 
+            if (typeof ResizeObserver !== 'undefined') {
+                new ResizeObserver(() => buildGrid()).observe(banner);
+            }
             window.addEventListener('resize', buildGrid);
-            window.addEventListener('mousemove', (e) => {
+
+            function updatePointer(clientX, clientY) {
                 const rect = banner.getBoundingClientRect();
-                mouse.x = e.clientX - rect.left;
-                mouse.y = e.clientY - rect.top;
-            });
+                mouse.x = clientX - rect.left;
+                mouse.y = clientY - rect.top;
+            }
+
+            window.addEventListener('mousemove', (e) => updatePointer(e.clientX, e.clientY), { passive: true });
+            document.addEventListener('mousemove', (e) => updatePointer(e.clientX, e.clientY), { passive: true });
+            window.addEventListener('touchmove', (e) => {
+                if (e.touches && e.touches[0]) {
+                    updatePointer(e.touches[0].clientX, e.touches[0].clientY);
+                }
+            }, { passive: true });
             window.addEventListener('mouseleave', () => {
                 mouse.x = -9999;
                 mouse.y = -9999;
             });
 
             function animate(now) {
-                const t = now * 0.0018;
+                if (banner.clientWidth > 0 && (banner.clientWidth !== width || banner.clientHeight !== height || dots.length === 0)) {
+                    buildGrid();
+                }
+
+                const t = ((now || performance.now()) - startTime) * 0.0025;
                 const isDark = document.documentElement.classList.contains('dark');
-                const baseAlpha = isDark ? 0.14 : 0.22;
+                const baseAlpha = isDark ? 0.16 : 0.24;
 
                 ctx.clearRect(0, 0, width, height);
 
                 for (let i = 0; i < dots.length; i++) {
                     const d = dots[i];
-                    // Gerakan gelombang halus terus-menerus
-                    const waveX = Math.sin(t + d.phase) * 1.3;
-                    const waveY = Math.cos(t * 0.85 + d.phase) * 1.3;
+                    // Gerakan gelombang otomatis yang terlihat jelas meski di dalam iframe
+                    const waveX = Math.sin(t + d.phaseX) * 4.2;
+                    const waveY = Math.cos(t * 0.9 + d.phaseY) * 3.6;
+                    const pulse = (Math.sin(t * 1.2 + d.phaseX) + 1) * 0.5; // 0..1
+
                     let targetX = d.ox + waveX;
                     let targetY = d.oy + waveY;
 
@@ -241,14 +270,14 @@
                         targetY += (dy / dist) * push;
                     }
 
-                    // Efek pegas halus kembali ke posisi
-                    d.vx = (d.vx + (targetX - d.x) * 0.12) * 0.78;
-                    d.vy = (d.vy + (targetY - d.y) * 0.12) * 0.78;
+                    // Efek pegas halus kembali ke posisi gelombang
+                    d.vx = (d.vx + (targetX - d.x) * 0.16) * 0.76;
+                    d.vy = (d.vy + (targetY - d.y) * 0.16) * 0.76;
                     d.x += d.vx;
                     d.y += d.vy;
 
-                    const radius = 1.5 + proximity * 1.6;
-                    const alpha = Math.min(0.85, baseAlpha + proximity * 0.5);
+                    const radius = 1.4 + (pulse * 0.65) + (proximity * 1.8);
+                    const alpha = Math.min(0.9, baseAlpha + (pulse * 0.14) + (proximity * 0.52));
 
                     ctx.beginPath();
                     ctx.arc(d.x, d.y, radius, 0, Math.PI * 2);
