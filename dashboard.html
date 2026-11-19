@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data ATS Kab. Ciamis</title>
+    <title>Data Residu Dapodik Kab. Ciamis</title>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Chart.js -->
@@ -12,7 +12,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
-    
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -20,25 +20,24 @@
                 extend: {
                     colors: {
                         primary: '#118263', // NevBank Green
-                        dark: '#1C2633', // Deep blue-gray for main text
-                        surface: '#F5F7FA', // Page bg
-                        textGray: '#8C97A7', // Light gray text
+                        dark: '#1C2633',
+                        surface: '#F5F7FA',
+                        textGray: '#8C97A7',
                         cardBorder: '#EEF0F4',
                     },
                     fontFamily: {
-                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Hide scrollbar for clean UI */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         .dark ::-webkit-scrollbar-thumb { background: #475569; }
-        
+
         .kpi-card:hover { transform: translateY(-2px); }
         .kpi-card { transition: all 0.2s ease; }
     </style>
@@ -64,11 +63,11 @@
             <!-- Logo -->
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-[10px] bg-primary text-white flex items-center justify-center shrink-0 shadow-sm">
-                    <i data-feather="users" class="w-5 h-5"></i>
+                    <i data-feather="database" class="w-5 h-5"></i>
                 </div>
                 <div class="flex flex-col">
                     <div class="text-[20px] font-extrabold tracking-tight leading-none">
-                        DATA&nbsp;<span class="text-dark dark:text-white">ANAK TIDAK SEKOLAH</span>
+                        DATA&nbsp;<span class="text-dark dark:text-white">RESIDU DAPODIK</span>
                     </div>
                     <div class="text-[10px] font-bold text-dark dark:text-white uppercase tracking-widest mt-1">
                         Kabupaten Ciamis
@@ -76,7 +75,6 @@
                 </div>
             </div>
         </div>
-
 
         <!-- Profile & Actions -->
         <div class="flex items-center gap-3">
@@ -90,10 +88,9 @@
     </nav>
 
     <!-- Welcome Header -->
-    <div class="mb-8 pl-6 md:pl-7 pr-6 md:pr-7 flex flex-col md:flex-row md:justify-between md:items-end gap-2">
-        <!-- Title -->
-        <h1 class="text-[32px] tracking-tight text-dark dark:text-white leading-tight md:leading-none">
-            Selamat Datang, <br class="block md:hidden" /><span id="welcomeName" class="text-textGray dark:text-slate-400">Admin Disdik</span>
+    <div class="mb-8 pl-2 md:pl-4 pr-2 md:pr-4 flex flex-col md:flex-row md:justify-between md:items-end gap-2">
+        <h1 class="text-[28px] md:text-[32px] tracking-tight text-textGray dark:text-slate-400 leading-tight md:leading-none">
+            Selamat Datang, <br class="block md:hidden" /><span id="welcomeName" class="text-dark dark:text-white">Admin Disdik</span>
         </h1>
         <div class="text-[13px] font-bold text-textGray dark:text-slate-400 pb-1 flex items-center gap-2">
             <i data-feather="calendar" class="w-4 h-4"></i>
@@ -101,137 +98,148 @@
         </div>
     </div>
 
-    <!-- 4 Small Cards -->
+    <!-- 4 KPI Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <!-- Card 1 (Moved LTM+DO) -->
-        <div class="kpi-card bg-[#E8F2EF] dark:bg-emerald-900/30 rounded-[20px] p-6 md:p-7 border border-transparent dark:border-transparent shadow-sm flex flex-col justify-between cursor-pointer hover:bg-[#dcece7] dark:hover:bg-emerald-900/50 transition-colors" onclick="setActiveCard(this)">
-            <div class="flex justify-between items-start mb-6">
+        <!-- Card 1: Total Residu -->
+        <div id="kpiCardAll" class="kpi-card bg-[#E8F2EF] dark:bg-emerald-900/30 rounded-[20px] p-6 md:p-7 border border-transparent dark:border-transparent shadow-sm flex flex-col justify-between cursor-pointer hover:bg-[#dcece7] dark:hover:bg-emerald-900/50 transition-colors" onclick="quickFilterStatus('', this)">
+            <div class="flex justify-between items-start mb-5">
                 <div>
-                    <h4 class="font-bold text-[15px] mb-1 text-dark dark:text-slate-100">Belum Verifikasi (LTM+DO)</h4>
-                    <p class="text-textGray dark:text-slate-400 text-[12px] font-semibold tracking-wide">Total Belum Verifikasi <i data-feather="copy" class="w-3 h-3 inline ml-1"></i></p>
+                    <h4 class="font-bold text-[15px] mb-1 text-dark dark:text-slate-100">Total Residu Siswa</h4>
+                    <p class="text-textGray dark:text-slate-400 text-[12px] font-semibold tracking-wide">Semua Satuan Pendidikan</p>
                 </div>
-                <div class="w-8 h-8 flex items-center justify-center text-red-500 font-bold text-lg italic">
-                    <i data-feather="x-octagon" class="w-6 h-6"></i>
+                <div class="w-8 h-8 flex items-center justify-center text-red-500">
+                    <i data-feather="alert-octagon" class="w-6 h-6"></i>
                 </div>
             </div>
             <div class="flex justify-between items-end">
-                <h2 class="text-[24px] font-extrabold flex items-baseline gap-1.5 text-dark dark:text-slate-100"><span id="kpi-belum-keduanya">0</span> <span class="text-textGray dark:text-slate-400 text-sm">Data</span></h2>
-                <i data-feather="more-vertical" class="w-4 h-4 text-textGray dark:text-slate-400 cursor-pointer"></i>
+                <h2 class="text-[26px] font-extrabold flex items-baseline gap-1.5 text-dark dark:text-slate-100"><span id="kpi-total-residu">0</span> <span class="text-textGray dark:text-slate-400 text-sm">Siswa</span></h2>
+                <i data-feather="users" class="w-4 h-4 text-textGray dark:text-slate-400"></i>
             </div>
             <div class="mt-3 pt-3 border-t border-gray-200 dark:border-slate-700/50 flex justify-between items-center text-[12px]">
-                <span class="text-textGray dark:text-slate-400 font-semibold">Sudah Verifikasi:</span>
-                <span class="text-primary font-bold"><span id="kpi-sudah-keduanya">0</span> Data</span>
+                <span class="text-textGray dark:text-slate-400 font-semibold">Negeri / Swasta:</span>
+                <span class="font-bold text-dark dark:text-slate-200"><span id="kpi-negeri" class="text-primary">0</span> / <span id="kpi-swasta" class="text-amber-600 dark:text-amber-400">0</span></span>
             </div>
         </div>
 
-        <!-- Card 2 -->
-        <div class="kpi-card bg-white dark:bg-slate-800 rounded-[20px] p-6 md:p-7 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-750 transition-colors" onclick="setActiveCard(this)">
-            <div class="flex justify-between items-start mb-6">
+        <!-- Card 2: Satuan Pendidikan Terdampak -->
+        <div id="kpiCardSekolah" class="kpi-card bg-white dark:bg-slate-800 rounded-[20px] p-6 md:p-7 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors" onclick="focusSchoolTable(this)">
+            <div class="flex justify-between items-start mb-5">
                 <div>
-                    <h4 class="font-bold text-[15px] mb-1 text-dark dark:text-slate-100">Belum Verifikasi (LTM)</h4>
-                    <p class="text-textGray dark:text-slate-400 text-[12px] font-semibold tracking-wide">Lulus Tidak Melanjutkan <i data-feather="copy" class="w-3 h-3 inline ml-1"></i></p>
+                    <h4 class="font-bold text-[15px] mb-1 text-dark dark:text-slate-100">Total Sekolah Beresidu</h4>
+                    <p class="text-textGray dark:text-slate-400 text-[12px] font-semibold tracking-wide">Satuan Pendidikan Beresidu</p>
                 </div>
-                <div class="w-8 h-8 flex items-center justify-center text-orange-500">
-                    <i data-feather="alert-triangle" class="w-6 h-6"></i>
+                <div class="w-8 h-8 flex items-center justify-center text-amber-500">
+                    <i data-feather="home" class="w-6 h-6"></i>
                 </div>
             </div>
             <div class="flex justify-between items-end">
-                <h2 class="text-[24px] font-extrabold flex items-baseline gap-1.5 text-dark dark:text-slate-100"><span id="kpi-belum-ltm">0</span> <span class="text-textGray dark:text-slate-400 text-sm">Data</span></h2>
-                <i data-feather="more-vertical" class="w-4 h-4 text-textGray dark:text-slate-400 cursor-pointer"></i>
+                <h2 class="text-[26px] font-extrabold flex items-baseline gap-1.5 text-dark dark:text-slate-100"><span id="kpi-total-sekolah">0</span> <span class="text-textGray dark:text-slate-400 text-sm">Sekolah</span></h2>
+                <i data-feather="map-pin" class="w-4 h-4 text-textGray dark:text-slate-400"></i>
             </div>
             <div class="mt-3 pt-3 border-t border-gray-200 dark:border-slate-700/50 flex justify-between items-center text-[12px]">
-                <span class="text-textGray dark:text-slate-400 font-semibold">Sudah Verifikasi:</span>
-                <span class="text-primary font-bold"><span id="kpi-sudah-ltm">0</span> Data</span>
+                <span class="text-textGray dark:text-slate-400 font-semibold">Negeri / Swasta:</span>
+                <span class="font-bold text-dark dark:text-slate-200"><span id="kpi-sekolah-negeri" class="text-primary">0</span> / <span id="kpi-sekolah-swasta" class="text-amber-600 dark:text-amber-400">0</span></span>
             </div>
         </div>
 
-        <!-- Card 3 -->
-        <div class="kpi-card bg-white dark:bg-slate-800 rounded-[20px] p-6 md:p-7 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-750 transition-colors" onclick="setActiveCard(this)">
-            <div class="flex justify-between items-start mb-6">
+        <!-- Card 3: Residu Sekolah Negeri -->
+        <div id="kpiCardNegeri" class="kpi-card bg-white dark:bg-slate-800 rounded-[20px] p-6 md:p-7 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors" onclick="quickFilterStatus('Negeri', this)">
+            <div class="flex justify-between items-start mb-5">
                 <div>
-                    <h4 class="font-bold text-[15px] mb-1 text-dark dark:text-slate-100">Belum Verifikasi (DO)</h4>
-                    <p class="text-textGray dark:text-slate-400 text-[12px] font-semibold tracking-wide">Drop Out <i data-feather="copy" class="w-3 h-3 inline ml-1"></i></p>
+                    <h4 class="font-bold text-[15px] mb-1 text-dark dark:text-slate-100">Residu Sekolah Negeri</h4>
+                    <p class="text-textGray dark:text-slate-400 text-[12px] font-semibold tracking-wide">Klik untuk filter Negeri</p>
                 </div>
-                <div class="w-8 h-8 flex items-center justify-center text-orange-500">
-                    <i data-feather="alert-triangle" class="w-6 h-6"></i>
+                <div class="w-8 h-8 flex items-center justify-center text-primary">
+                    <i data-feather="shield" class="w-6 h-6"></i>
                 </div>
             </div>
             <div class="flex justify-between items-end">
-                <h2 class="text-[24px] font-extrabold flex items-baseline gap-1.5 text-dark dark:text-slate-100"><span id="kpi-belum-do">0</span> <span class="text-textGray dark:text-slate-400 text-sm">Data</span></h2>
-                <i data-feather="more-vertical" class="w-4 h-4 text-textGray dark:text-slate-400 cursor-pointer"></i>
+                <h2 class="text-[26px] font-extrabold flex items-baseline gap-1.5 text-dark dark:text-slate-100"><span id="kpi-residu-negeri">0</span> <span class="text-textGray dark:text-slate-400 text-sm">Siswa</span></h2>
+                <i data-feather="filter" class="w-4 h-4 text-textGray dark:text-slate-400"></i>
             </div>
             <div class="mt-3 pt-3 border-t border-gray-200 dark:border-slate-700/50 flex justify-between items-center text-[12px]">
-                <span class="text-textGray dark:text-slate-400 font-semibold">Sudah Verifikasi:</span>
-                <span class="text-primary font-bold"><span id="kpi-sudah-do">0</span> Data</span>
+                <span class="text-textGray dark:text-slate-400 font-semibold">Jumlah Sekolah:</span>
+                <span class="font-bold text-primary"><span id="kpi-negeri-sekolah-cnt">0</span> Sekolah</span>
             </div>
         </div>
 
-        <!-- Card 4 (Total Keseluruhan) -->
-        <div class="kpi-card bg-white dark:bg-slate-800 rounded-[20px] p-6 md:p-7 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-750 transition-colors" onclick="setActiveCard(this)">
-            <div class="flex justify-between items-start mb-6">
+        <!-- Card 4: Residu Sekolah Swasta -->
+        <div id="kpiCardSwasta" class="kpi-card bg-white dark:bg-slate-800 rounded-[20px] p-6 md:p-7 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col justify-between cursor-pointer hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors" onclick="quickFilterStatus('Swasta', this)">
+            <div class="flex justify-between items-start mb-5">
                 <div>
-                    <h4 class="font-bold text-[15px] mb-1 text-dark dark:text-slate-100">Total Keseluruhan</h4>
-                    <p class="text-textGray dark:text-slate-400 text-[12px] font-semibold tracking-wide">Semua Data <i data-feather="copy" class="w-3 h-3 inline ml-1"></i></p>
+                    <h4 class="font-bold text-[15px] mb-1 text-dark dark:text-slate-100">Residu Sekolah Swasta</h4>
+                    <p class="text-textGray dark:text-slate-400 text-[12px] font-semibold tracking-wide">Klik untuk filter Swasta</p>
                 </div>
                 <div class="w-8 h-8 flex items-center justify-center text-blue-500">
-                    <i data-feather="users" class="w-6 h-6"></i>
+                    <i data-feather="layers" class="w-6 h-6"></i>
                 </div>
             </div>
             <div class="flex justify-between items-end">
-                <h2 class="text-[24px] font-extrabold flex items-baseline gap-1.5 text-dark dark:text-slate-100"><span id="kpi-total">0</span> <span class="text-textGray dark:text-slate-400 text-sm">Data</span></h2>
-                <i data-feather="more-vertical" class="w-4 h-4 text-textGray dark:text-slate-400 cursor-pointer"></i>
+                <h2 class="text-[26px] font-extrabold flex items-baseline gap-1.5 text-dark dark:text-slate-100"><span id="kpi-residu-swasta">0</span> <span class="text-textGray dark:text-slate-400 text-sm">Siswa</span></h2>
+                <i data-feather="filter" class="w-4 h-4 text-textGray dark:text-slate-400"></i>
             </div>
-            <div class="mt-3 pt-3 border-t border-gray-200 dark:border-slate-700/50 flex flex-col gap-1 text-[12px]">
-                <div class="flex justify-between items-center">
-                    <span class="text-textGray dark:text-slate-400 font-semibold">Belum Verifikasi:</span>
-                    <span class="text-red-500 font-bold"><span id="kpi-total-belum-all">0</span> Data</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-textGray dark:text-slate-400 font-semibold">Sudah Verifikasi:</span>
-                    <span class="text-primary font-bold"><span id="kpi-total-sudah-all">0</span> Data</span>
-                </div>
+            <div class="mt-3 pt-3 border-t border-gray-200 dark:border-slate-700/50 flex justify-between items-center text-[12px]">
+                <span class="text-textGray dark:text-slate-400 font-semibold">Jumlah Sekolah:</span>
+                <span class="font-bold text-blue-500"><span id="kpi-swasta-sekolah-cnt">0</span> Sekolah</span>
             </div>
         </div>
     </div>
 
-    <!-- Bottom Section (2 columns) -->
+    <!-- Charts & Table Section -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Chart Card -->
-        <div class="lg:col-span-12 bg-white dark:bg-slate-800 rounded-[20px] p-8 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col mb-2">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-[17px] font-bold text-dark dark:text-slate-100 shrink-0">Grafik Pergerakan Belum Verifikasi</h3>
+
+        <!-- Trend Chart Card -->
+        <div class="lg:col-span-12 bg-white dark:bg-slate-800 rounded-[20px] p-6 md:p-8 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+                <div>
+                    <h3 class="text-[17px] font-bold text-dark dark:text-slate-100">Grafik Pergerakan Data Residu</h3>
+                    <p class="text-[12px] font-medium text-textGray dark:text-slate-400 mt-0.5">Tren jumlah peserta didik residu &amp; sekolah terdampak per periode tanggal</p>
+                </div>
+                <span id="historyCountBadge" class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-surface dark:bg-slate-700 text-textGray dark:text-slate-300 border border-gray-200 dark:border-slate-600">0 Periode</span>
             </div>
-            <div class="w-full h-[300px] relative">
+            <div class="w-full h-[290px] relative">
                 <canvas id="trendChart"></canvas>
             </div>
         </div>
-        
+
         <!-- Table Card -->
-        <div class="lg:col-span-12 bg-white dark:bg-slate-800 rounded-[20px] p-8 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col">
+        <div id="tableCard" class="lg:col-span-12 bg-white dark:bg-slate-800 rounded-[20px] p-6 md:p-8 border border-cardBorder dark:border-slate-700 shadow-sm flex flex-col">
             <div class="flex flex-col mb-6 gap-4">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <!-- Title and Indicators -->
+                <!-- Header Row: Tabs + Actions -->
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                     <div class="flex flex-wrap items-center gap-3">
-                        <h3 class="text-[17px] font-bold text-dark dark:text-slate-100 shrink-0">Rincian Data Sekolah</h3>
-                        <div id="activeFiltersContainer" class="flex flex-wrap items-center gap-1.5 text-[12px] font-bold empty:hidden">
+                        <!-- Dual View Switcher -->
+                        <div class="inline-flex p-1 bg-surface dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-700">
+                            <button id="tabSchools" onclick="switchView('schools')" class="px-4 py-2 rounded-lg text-[13px] font-bold transition-all flex items-center gap-2 bg-primary text-white shadow-sm cursor-pointer">
+                                <i data-feather="home" class="w-4 h-4"></i>
+                                <span>Rekap per Sekolah</span>
+                                <span id="badgeSchoolCount" class="px-2 py-0.5 text-[11px] rounded-full bg-white/20 text-white">0</span>
+                            </button>
+                            <button id="tabStudents" onclick="switchView('students')" class="px-4 py-2 rounded-lg text-[13px] font-bold transition-all flex items-center gap-2 text-textGray dark:text-slate-400 hover:text-dark dark:hover:text-white cursor-pointer">
+                                <i data-feather="users" class="w-4 h-4"></i>
+                                <span>Rincian Peserta Didik</span>
+                                <span id="badgeStudentCount" class="px-2 py-0.5 text-[11px] rounded-full bg-gray-200 dark:bg-slate-700 text-dark dark:text-slate-200">0</span>
+                            </button>
                         </div>
+
+                        <!-- Active Filters Container -->
+                        <div id="activeFiltersContainer" class="flex flex-wrap items-center gap-1.5 text-[12px] font-bold empty:hidden"></div>
                     </div>
-                    
+
                     <!-- Action Buttons -->
                     <div class="flex flex-wrap items-center gap-2 shrink-0">
-                        <button onclick="resetFilters()" class="px-3.5 py-2 bg-red-50 text-red-500 border border-red-100 dark:bg-red-500/10 dark:border-red-500/20 dark:text-red-400 rounded-[8px] hover:bg-red-100 dark:hover:bg-red-500/20 transition-colors flex items-center justify-center" title="Reset Semua Filter">
-                            <i data-feather="refresh-ccw" class="w-4 h-4"></i>
-                        </button>
-                        <button id="toggleColumnsBtn" onclick="toggleExtraColumns()" class="px-3.5 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 rounded-[8px] text-textGray dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors flex items-center justify-center" title="Tampilkan/Sembunyikan Kolom Ekstra">
-                            <i data-feather="columns" class="w-4 h-4"></i>
+                        <button onclick="resetFilters()" class="px-3.5 py-2 bg-red-50 text-red-500 border border-red-100 dark:bg-red-500/10 dark:border-red-500/20 dark:text-red-400 rounded-[8px] hover:bg-red-100 dark:hover:bg-red-500/20 transition-colors flex items-center gap-1.5 text-[12px] font-bold cursor-pointer" title="Reset Semua Filter">
+                            <i data-feather="refresh-ccw" class="w-3.5 h-3.5"></i>
+                            <span>Reset</span>
                         </button>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-6 gap-4 w-full">
+
+                <!-- Filters Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3 w-full">
                     <div class="flex items-center gap-2 text-[13px] font-bold text-textGray dark:text-slate-400 w-full">
-                        Show 
-                        <select id="rowsPerPage" class="px-2 py-1.5 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/20 dark:focus:border-primary/50 rounded-[6px] text-dark dark:text-slate-100 outline-none cursor-pointer">
+                        Show
+                        <select id="rowsPerPage" class="px-2 py-1.5 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/40 rounded-[6px] text-dark dark:text-slate-100 outline-none cursor-pointer">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -239,115 +247,202 @@
                         </select>
                         entries
                     </div>
-                    <select id="filterKecamatan" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/20 dark:focus:border-primary/50 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
+                    <select id="filterKecamatan" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/40 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
                         <option value="">Semua Kecamatan</option>
                     </select>
-                    <select id="filterDesa" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/20 dark:focus:border-primary/50 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
-                        <option value="">Semua Desa/Kelurahan</option>
+                    <select id="filterBentuk" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/40 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
+                        <option value="">Semua Jenjang</option>
                     </select>
-                    <select id="filterStatus" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/20 dark:focus:border-primary/50 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
+                    <select id="filterStatus" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/40 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
                         <option value="">Semua Status</option>
-                        <option value="belum">Belum Verifikasi</option>
-                        <option value="selesai">Sudah Verifikasi</option>
                     </select>
-                    <select id="filterWilayah" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/20 dark:focus:border-primary/50 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
-                        <option value="">Semua Wilayah</option>
+                    <select id="filterMasalah" class="w-full px-3 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/40 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none cursor-pointer">
+                        <option value="">Semua Masalah Residu</option>
                     </select>
                     <div class="flex gap-2 w-full">
-                        <input type="text" id="searchInput" placeholder="Cari NPSN / Nama..." class="w-full px-4 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/20 dark:focus:border-primary/50 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none transition-all">
+                        <input type="text" id="searchInput" placeholder="Cari NPSN / Sekolah / Siswa..." class="w-full px-3.5 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/40 rounded-[8px] text-[13px] font-bold text-dark dark:text-slate-100 outline-none transition-all">
                     </div>
                 </div>
             </div>
 
+            <!-- Table Container -->
             <div class="overflow-x-auto flex-grow">
-                <table class="w-full min-w-[1000px] border-collapse text-left">
-                    <thead>
-                        <tr class="text-textGray dark:text-slate-400 text-[12px] uppercase tracking-wider border-b border-gray-200 dark:border-slate-700">
-                            <th class="py-3 px-2 font-bold">Kecamatan</th>
-                            <th class="py-3 px-2 font-bold">Desa/Kelurahan</th>
-                            <th class="py-3 px-2 font-bold">NPSN</th>
-                            <th class="py-3 px-2 font-bold">Nama Sekolah</th>
-                            <th class="py-3 px-2 font-bold text-center">Belum Verifikasi (LTM)</th>
-                            <th class="py-3 px-2 font-bold text-center">Belum Verifikasi (DO)</th>
-                            <th class="py-3 px-2 font-bold text-center">Total Belum Verifikasi (LTM+DO)</th>
-                            <th class="extra-col hidden py-3 px-2 font-bold text-center">Sudah Verifikasi (LTM)</th>
-                            <th class="extra-col hidden py-3 px-2 font-bold text-center">Sudah Verifikasi (DO)</th>
-                            <th class="extra-col hidden py-3 px-2 font-bold text-center">Total Sudah Verifikasi (LTM+DO)</th>
-                            <th class="extra-col hidden py-3 px-2 font-bold text-center">Total Keseluruhan</th>
-                            <th class="py-3 px-2 font-bold">Wilayah</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Data injected via JS -->
-                    </tbody>
+                <table class="w-full min-w-[960px] border-collapse text-left">
+                    <thead id="tableHead"></thead>
+                    <tbody id="tableBody"></tbody>
                 </table>
             </div>
-            
+
+            <!-- Footer & Pagination -->
             <div id="tableFooter" class="mt-6 pt-4 flex flex-col md:flex-row justify-between items-center text-[13px] font-bold text-textGray dark:text-slate-400 border-t border-gray-100 dark:border-slate-700 gap-4">
                 <div id="tableInfo">Menampilkan 0 data</div>
-                <div id="pagination" class="flex items-center gap-1"></div>
+                <div id="pagination" class="flex items-center gap-1 flex-wrap justify-center"></div>
             </div>
         </div>
-
     </div>
-    
+
     <!-- Footer -->
-    <div class="mt-4 md:mt-8 text-center text-sm font-semibold text-textGray dark:text-slate-400">
+    <div class="mt-6 md:mt-8 text-center text-sm font-semibold text-textGray dark:text-slate-400">
         &copy; 2026 Dinas Pendidikan Kabupaten Ciamis.
     </div>
 
 </div>
 
+<!-- Modal Detail Peserta Didik per Sekolah -->
+<div id="schoolModal" class="fixed inset-0 z-[9990] hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm" onclick="handleModalBackdrop(event)">
+    <div class="bg-white dark:bg-slate-800 rounded-[24px] w-full max-w-5xl max-h-[88vh] flex flex-col shadow-2xl border border-gray-100 dark:border-slate-700 overflow-hidden" onclick="event.stopPropagation()">
+        <!-- Modal Header -->
+        <div class="px-6 py-5 border-b border-gray-100 dark:border-slate-700 flex items-start justify-between gap-4 bg-surface/60 dark:bg-slate-900/50">
+            <div>
+                <div class="flex flex-wrap items-center gap-2 mb-1">
+                    <h3 id="modalSchoolName" class="text-lg md:text-xl font-extrabold text-dark dark:text-white">-</h3>
+                    <span id="modalSchoolBadges" class="flex items-center gap-1.5"></span>
+                </div>
+                <p id="modalSchoolMeta" class="text-[13px] font-semibold text-textGray dark:text-slate-400">-</p>
+            </div>
+            <button onclick="closeSchoolModal()" class="p-2 rounded-xl text-textGray hover:text-dark dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors cursor-pointer" title="Tutup">
+                <i data-feather="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+
+        <!-- Modal Toolbar -->
+        <div class="px-6 py-3 border-b border-gray-100 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <input type="text" id="modalSearchInput" placeholder="Cari nama peserta didik / NISN / NIK / masalah..." class="w-full sm:w-80 px-3.5 py-2 bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 focus:border-primary/40 rounded-[8px] text-[13px] font-semibold text-dark dark:text-slate-100 outline-none">
+            <div class="flex items-center gap-2 shrink-0">
+                <button onclick="viewModalSchoolInStudentTab()" class="px-3 py-2 rounded-lg text-[12px] font-bold bg-surface dark:bg-slate-900 border border-gray-200 dark:border-slate-700 text-dark dark:text-slate-200 hover:border-primary hover:text-primary transition-colors flex items-center gap-1.5 cursor-pointer">
+                    <i data-feather="external-link" class="w-3.5 h-3.5"></i>
+                    <span>Buka di Tab Siswa</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="overflow-y-auto flex-grow px-6 py-4">
+            <div class="overflow-x-auto">
+                <table class="w-full min-w-[760px] border-collapse text-left">
+                    <thead>
+                        <tr class="text-textGray dark:text-slate-400 text-[11px] uppercase tracking-wider border-b border-gray-200 dark:border-slate-700">
+                            <th class="py-2.5 px-2 font-bold w-10">No</th>
+                            <th class="py-2.5 px-2 font-bold">Nama Peserta Didik</th>
+                            <th class="py-2.5 px-2 font-bold whitespace-nowrap">NISN / NIK</th>
+                            <th class="py-2.5 px-2 font-bold">Rincian Masalah Residu</th>
+                        </tr>
+                    </thead>
+                    <tbody id="modalTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="px-6 py-3.5 border-t border-gray-100 dark:border-slate-700 flex items-center justify-between bg-surface/50 dark:bg-slate-900/40 text-[12px] font-bold text-textGray dark:text-slate-400">
+            <span id="modalStudentCount">0 Peserta Didik</span>
+            <button onclick="closeSchoolModal()" class="px-4 py-2 rounded-lg bg-gray-200 dark:bg-slate-700 text-dark dark:text-white hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors cursor-pointer">
+                Tutup
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Loader -->
 <div id="loader" class="fixed inset-0 bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm flex flex-col justify-center items-center z-[9999] transition-opacity duration-500">
     <div class="w-12 h-12 border-4 border-gray-100 dark:border-slate-700 border-t-primary rounded-full animate-spin mb-4"></div>
-    <h2 class="text-dark dark:text-slate-100 text-xl font-bold tracking-tight">Memuat Data...</h2>
+    <h2 class="text-dark dark:text-slate-100 text-xl font-bold tracking-tight">Memuat Data Residu...</h2>
 </div>
 
 <script>
     let globalData = [];
     let globalHistory = [];
+    let currentFilteredStudents = [];
+    let currentFilteredSchools = [];
     let trendChart = null;
+    let activeView = 'schools'; // 'schools' | 'students'
     let currentPage = 1;
     let rowsPerPage = 10;
-    let showExtraColumns = false;
+    let schoolSort = { field: 'jumlahResidu', dir: 'desc' };
+    let activeModalSchool = null;
+    const animTimers = {};
+
+    // Perbarui URL ini jika Anda membuat deployment Web App Apps Script baru
+    const API_URL = "https://script.google.com/macros/s/AKfycbyk__dcHj_Zm_boKZOlRL_xdeXsAfBvnqFzMw3veXsO_xfndtn_g-PJdd6IKKib85l7/exec";
 
     function logout() {
         localStorage.removeItem('isLoggedIn');
         localStorage.removeItem('userRole');
+        localStorage.removeItem('username');
         window.location.href = 'index.html';
     }
 
-    function toggleExtraColumns() {
-        showExtraColumns = !showExtraColumns;
-        const btn = document.getElementById('toggleColumnsBtn');
-        if (showExtraColumns) {
-            btn.classList.add('bg-primary/10', 'text-primary', 'dark:bg-primary/20', 'border-primary/30', 'dark:border-primary/50');
-            btn.classList.remove('bg-surface', 'dark:bg-slate-900', 'text-textGray', 'dark:text-slate-400');
-        } else {
-            btn.classList.remove('bg-primary/10', 'text-primary', 'dark:bg-primary/20', 'border-primary/30', 'dark:border-primary/50');
-            btn.classList.add('bg-surface', 'dark:bg-slate-900', 'text-textGray', 'dark:text-slate-400');
-        }
-        
-        const extraCols = document.querySelectorAll('th.extra-col, td.extra-col');
-        extraCols.forEach(col => {
-            if (showExtraColumns) col.classList.remove('hidden');
-            else col.classList.add('hidden');
-        });
-        
-        renderTable();
+    function escapeHtml(str) {
+        if (str === null || str === undefined) return '';
+        return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
     }
 
-    const API_URL = "https://script.google.com/macros/s/AKfycbyPiDhGrCE8gvDQzggC56Eq_myGe2GYYnvEIr_XaGsfw9BNoIRB1CoW4EQWmG0yBEU8/exec";
+    function cleanIssueText(text) {
+        if (!text) return '';
+        return String(text).replace(/%%/g, '%').trim();
+    }
+
+    function parseIssues(masalahStr) {
+        const raw = cleanIssueText(masalahStr);
+        if (!raw) {
+            return [{ category: 'Tanpa Keterangan', detail: 'Tidak ada rincian masalah', raw: '' }];
+        }
+        const parts = raw.split('|').map(p => p.trim()).filter(Boolean);
+        if (parts.length === 0) {
+            return [{ category: 'Tanpa Keterangan', detail: 'Tidak ada rincian masalah', raw: '' }];
+        }
+        return parts.map(segment => {
+            const idx = segment.indexOf(':');
+            if (idx !== -1) {
+                return {
+                    category: segment.substring(0, idx).trim(),
+                    detail: segment.substring(idx + 1).trim(),
+                    raw: segment
+                };
+            }
+            return { category: segment, detail: '', raw: segment };
+        });
+    }
+
+    function getUniqueIssueCategories(masalahStr) {
+        const parsed = parseIssues(masalahStr);
+        return Array.from(new Set(parsed.map(p => p.category)));
+    }
+
+    function normalizeStudentRow(row) {
+        const masalah = row['Masalah Residu'] || '';
+        return {
+            namaSekolah: (row['Nama Satuan Pendidikan'] || row['Nama Sekolah'] || '').toString().trim(),
+            npsn: (row['NPSN'] || '').toString().trim(),
+            bentuk: (row['Bentuk Pendidikan'] || '').toString().trim(),
+            status: (row['Status Sekolah'] || '').toString().trim(),
+            kecamatan: (row['Kecamatan'] || '').toString().trim(),
+            nik: (row['NIK'] || '').toString().trim(),
+            nisn: (row['NISN'] || '').toString().trim(),
+            namaSiswa: (row['Nama Peserta Didik'] || '').toString().trim(),
+            masalahRaw: cleanIssueText(masalah),
+            issues: parseIssues(masalah),
+            issueCategories: getUniqueIssueCategories(masalah)
+        };
+    }
+
+    function getIssueBadgeColor(category) {
+        const c = (category || '').toLowerCase();
+        if (c.includes('nik')) return 'bg-red-50 text-red-600 border-red-200 dark:bg-red-500/15 dark:text-red-300 dark:border-red-500/30';
+        if (c.includes('nisn')) return 'bg-purple-50 text-purple-700 border-purple-200 dark:bg-purple-500/15 dark:text-purple-300 dark:border-purple-500/30';
+        if (c.includes('desa') || c.includes('kelurahan')) return 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-500/15 dark:text-blue-300 dark:border-blue-500/30';
+        if (c.includes('tempat') || c.includes('tanggal') || c.includes('nama') || c.includes('ibu')) return 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/15 dark:text-amber-300 dark:border-amber-500/30';
+        if (c.includes('validasi') || c.includes('rombel')) return 'bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-500/15 dark:text-teal-300 dark:border-teal-500/30';
+        return 'bg-gray-100 text-gray-600 border-gray-200 dark:bg-slate-700 dark:text-slate-300 dark:border-slate-600';
+    }
 
     document.addEventListener('DOMContentLoaded', () => {
         feather.replace();
-
-        const currentUserRole = localStorage.getItem('userRole') || '';
-        const statusFilter = document.getElementById('filterStatus');
-        if (statusFilter) {
-            statusFilter.value = currentUserRole.toLowerCase() === 'admin' ? '' : 'belum';
-        }
 
         if (API_URL === "MASUKKAN_URL_WEB_APP_APPS_SCRIPT_ANDA_DI_SINI") {
             showError("Silakan masukkan URL Web App Apps Script.");
@@ -358,32 +453,40 @@
             .then(response => response.text())
             .then(text => processData(text))
             .catch(error => {
-                showError("Gagal memanggil API.");
+                showError("Gagal memanggil API. Pastikan Web App Apps Script sudah di-deploy ulang.");
                 console.error(error);
             });
 
         document.getElementById('searchInput').addEventListener('input', () => {
             currentPage = 1;
-            renderTable();
+            renderAll();
         });
 
         document.getElementById('rowsPerPage').addEventListener('change', (e) => {
-            rowsPerPage = parseInt(e.target.value);
+            rowsPerPage = parseInt(e.target.value, 10);
             currentPage = 1;
-            renderTable();
+            renderTableOnly();
         });
 
-        document.getElementById('filterWilayah').addEventListener('change', () => handleFilterChange('wilayah'));
-        document.getElementById('filterKecamatan').addEventListener('change', () => handleFilterChange('kecamatan'));
-        document.getElementById('filterDesa').addEventListener('change', () => handleFilterChange('desa'));
-        document.getElementById('filterStatus').addEventListener('change', () => {
-            currentPage = 1;
-            renderTable();
+        ['filterKecamatan', 'filterBentuk', 'filterStatus', 'filterMasalah'].forEach(id => {
+            document.getElementById(id).addEventListener('change', () => {
+                currentPage = 1;
+                syncCardHighlightFromFilter();
+                renderAll();
+            });
+        });
+
+        document.getElementById('modalSearchInput').addEventListener('input', () => {
+            renderModalStudents();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeSchoolModal();
         });
 
         // Dark mode setup
         const themeToggleBtn = document.getElementById('themeToggle');
-        
+
         function updateThemeIcon() {
             const isDark = document.documentElement.classList.contains('dark');
             const newIcon = document.createElement('i');
@@ -407,9 +510,7 @@
             const isDark = document.documentElement.classList.contains('dark');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
             updateThemeIcon();
-            if (trendChart) {
-                trendChart.update(); // trigger chart redraw for theme update
-            }
+            renderCharts(currentFilteredStudents, buildFilteredHistory());
         });
 
         // Set Welcome Name
@@ -426,138 +527,18 @@
         }
     });
 
-    function populateFilters(data) {
-        const wilSet = new Set();
-        const kecSet = new Set();
-        const desaSet = new Set();
-
-        data.forEach(row => {
-            if (row['Wilayah']) wilSet.add(row['Wilayah']);
-            if (row['Kecamatan']) kecSet.add(row['Kecamatan']);
-            const desa = row['Desa/Kelurahan'] || row['Desa'] || row['Kelurahan'];
-            if (desa) desaSet.add(desa);
-        });
-
-        const populate = (id, set, defaultText) => {
-            const select = document.getElementById(id);
-            select.innerHTML = `<option value="">${defaultText}</option>`;
-            Array.from(set).sort().forEach(val => {
-                const opt = document.createElement('option');
-                opt.value = val;
-                opt.innerText = val;
-                select.appendChild(opt);
-            });
-        };
-
-        populate('filterWilayah', wilSet, "Semua Wilayah");
-        populate('filterKecamatan', kecSet, "Semua Kecamatan");
-        populate('filterDesa', desaSet, "Semua Desa/Kelurahan");
-    }
-
-    function handleFilterChange(source) {
-        const wilSelect = document.getElementById('filterWilayah');
-        const kecSelect = document.getElementById('filterKecamatan');
-        const desaSelect = document.getElementById('filterDesa');
-
-        let fWil = wilSelect.value;
-        let fKec = kecSelect.value;
-        let fDesa = desaSelect.value;
-
-        if (source === 'desa' && fDesa !== "") {
-            const matchedRow = globalData.find(r => (r['Desa/Kelurahan'] || r['Desa'] || r['Kelurahan']) === fDesa);
-            if (matchedRow) {
-                fKec = matchedRow['Kecamatan'] || fKec;
-                kecSelect.value = fKec;
-            }
-        }
-
-        const validKecSet = new Set();
-        const validDesaSet = new Set();
-
-        globalData.forEach(row => {
-            const rWil = row['Wilayah'] || '';
-            const rKec = row['Kecamatan'] || '';
-            const rDesa = row['Desa/Kelurahan'] || row['Desa'] || row['Kelurahan'] || '';
-
-            if (fWil === "" || rWil === fWil) {
-                if (rKec) validKecSet.add(rKec);
-                if (fKec === "" || rKec === fKec) {
-                    if (rDesa) validDesaSet.add(rDesa);
-                }
-            }
-        });
-
-        const updateOptions = (select, set, defaultText, currentValue) => {
-            select.innerHTML = `<option value="">${defaultText}</option>`;
-            Array.from(set).sort().forEach(val => {
-                const opt = document.createElement('option');
-                opt.value = val;
-                opt.innerText = val;
-                select.appendChild(opt);
-            });
-            if (set.has(currentValue)) {
-                select.value = currentValue;
-            } else {
-                select.value = "";
-            }
-        };
-
-        if (source === 'wilayah') {
-            updateOptions(kecSelect, validKecSet, "Semua Kecamatan", fKec);
-            
-            const newFKec = kecSelect.value;
-            const newValidDesaSet = new Set();
-            globalData.forEach(row => {
-                const rWil = row['Wilayah'] || '';
-                const rKec = row['Kecamatan'] || '';
-                const rDesa = row['Desa/Kelurahan'] || row['Desa'] || row['Kelurahan'] || '';
-                if ((fWil === "" || rWil === fWil) && (newFKec === "" || rKec === newFKec)) {
-                    if (rDesa) newValidDesaSet.add(rDesa);
-                }
-            });
-            updateOptions(desaSelect, newValidDesaSet, "Semua Desa/Kelurahan", fDesa);
-        } 
-        else if (source === 'kecamatan') {
-            updateOptions(kecSelect, validKecSet, "Semua Kecamatan", fKec);
-            updateOptions(desaSelect, validDesaSet, "Semua Desa/Kelurahan", fDesa);
-        }
-        else if (source === 'desa') {
-            updateOptions(kecSelect, validKecSet, "Semua Kecamatan", fKec);
-            updateOptions(desaSelect, validDesaSet, "Semua Desa/Kelurahan", fDesa);
-        }
-
-        currentPage = 1;
-        renderTable();
-    }
-
-    function resetFilters() {
-        const role = localStorage.getItem('userRole') || '';
-        document.getElementById('searchInput').value = '';
-        document.getElementById('filterDesa').value = '';
-        document.getElementById('filterWilayah').value = '';
-        document.getElementById('filterStatus').value = '';
-        
-        const kec = document.getElementById('filterKecamatan');
-        if (role.toLowerCase() === 'admin') {
-            kec.value = '';
-            handleFilterChange('wilayah');
-        } else {
-            handleFilterChange('kecamatan');
-        }
-    }
-
     function processData(jsonString) {
         try {
             const parsed = JSON.parse(jsonString);
-            
-            let data = [];
+
+            let rawRows = [];
             let historyData = [];
             let updateDateStr = "";
 
             if (Array.isArray(parsed)) {
-                data = parsed; // Legacy support
+                rawRows = parsed;
             } else if (parsed.data) {
-                data = parsed.data;
+                rawRows = parsed.data;
                 historyData = parsed.history || [];
                 updateDateStr = parsed.updateDate || "";
             } else {
@@ -565,24 +546,32 @@
                 return;
             }
 
+            if (rawRows.length > 0 && rawRows[0]['Belum Verifikasi (LTM)'] !== undefined && rawRows[0]['Masalah Residu'] === undefined) {
+                showError("API_URL masih mengarah ke deployment Apps Script ATS lama. Silakan deploy ulang Code.gs untuk spreadsheet Data Residu Dapodik (18/11/26) dan perbarui API_URL di index.html & dashboard.html.");
+                return;
+            }
+
+            let normalized = rawRows.map(normalizeStudentRow);
+
             const role = localStorage.getItem('userRole') || 'user';
             const username = localStorage.getItem('username') || '';
-            
+
             if (role.toLowerCase() !== 'admin') {
                 const normUser = username.trim().toLowerCase();
-                data = data.filter(row => {
-                    const k = row['Kecamatan'] ? row['Kecamatan'].toString().trim().toLowerCase() : '';
+                normalized = normalized.filter(row => {
+                    const k = row.kecamatan.toLowerCase();
                     return k === normUser || k.includes(normUser);
                 });
-                historyData.forEach(h => {
-                    h.data = h.data.filter(row => {
-                        const k = row['Kecamatan'] ? row['Kecamatan'].toString().trim().toLowerCase() : '';
+                historyData = historyData.map(h => {
+                    const schools = (h.schools || []).filter(s => {
+                        const k = (s.kecamatan || '').toLowerCase();
                         return k === normUser || k.includes(normUser);
                     });
+                    return { date: h.date, sheetName: h.sheetName, schools };
                 });
             }
 
-            globalData = data;
+            globalData = normalized;
             globalHistory = historyData;
 
             if (updateDateStr) {
@@ -592,8 +581,8 @@
                 document.getElementById('updateDate').innerText = new Date().toLocaleDateString('id-ID', dateOptions);
             }
 
-            populateFilters(data);
-            
+            populateFilters(globalData);
+
             if (role.toLowerCase() !== 'admin') {
                 const kec = document.getElementById('filterKecamatan');
                 if (kec) {
@@ -603,8 +592,8 @@
                 }
             }
 
-            renderTable();
-            
+            renderAll();
+
             const loader = document.getElementById('loader');
             loader.style.opacity = '0';
             setTimeout(() => loader.style.display = 'none', 500);
@@ -618,284 +607,533 @@
     function showError(msg) {
         document.getElementById('loader').innerHTML = `
             <div class="w-12 h-12 rounded-full bg-red-100 text-red-500 flex items-center justify-center mb-4"><i data-feather="alert-triangle"></i></div>
-            <h2 class="text-dark text-xl font-bold mb-2">Terjadi Kesalahan</h2>
-            <p class="text-textGray font-semibold">${msg}</p>
+            <h2 class="text-dark dark:text-white text-xl font-bold mb-2">Terjadi Kesalahan</h2>
+            <p class="text-textGray dark:text-slate-400 font-semibold text-center max-w-md px-4">${escapeHtml(msg)}</p>
         `;
         feather.replace();
     }
 
-    function calculateKPIs(data, skipAnimation = false) {
-        let total = 0;
-        let ltmSelesai = 0;
-        let doSelesai = 0;
-        let sudahKeduanya = 0;
-        let belumLtm = 0;
-        let belumDo = 0;
-        let belumKeduanya = 0;
+    function populateFilters(data) {
+        const kecSet = new Set();
+        const bentukSet = new Set();
+        const statusSet = new Set();
+        const issueCounts = {};
 
         data.forEach(row => {
-            let t = parseInt(row['Total Keseluruhan']) || 0;
-            
-            let sudahLTM = parseInt(row['Sudah Verifikasi (LTM)']) || 0;
-            let sudahDO = parseInt(row['Sudah Verifikasi (DO)']) || 0;
-            let sudahLTMDO = parseInt(row['Sudah Verifikasi (LTM+DO)']) || 0;
-
-            let bLTM = row['Belum Verifikasi (LTM)'] !== undefined ? parseInt(row['Belum Verifikasi (LTM)']) : (t - sudahLTM);
-            let bDO = row['Belum Verifikasi (DO)'] !== undefined ? parseInt(row['Belum Verifikasi (DO)']) : (t - sudahDO);
-            let bLTMDO = row['Belum Verifikasi (LTM+DO)'] !== undefined ? parseInt(row['Belum Verifikasi (LTM+DO)']) : (t - sudahLTMDO);
-
-            total += t;
-            ltmSelesai += sudahLTM;
-            doSelesai += sudahDO;
-            sudahKeduanya += sudahLTMDO;
-            belumLtm += bLTM;
-            belumDo += bDO;
-            belumKeduanya += bLTMDO;
+            if (row.kecamatan) kecSet.add(row.kecamatan);
+            if (row.bentuk) bentukSet.add(row.bentuk);
+            if (row.status) statusSet.add(row.status);
+            row.issueCategories.forEach(cat => {
+                issueCounts[cat] = (issueCounts[cat] || 0) + 1;
+            });
         });
 
-        const updateVal = (id, val) => {
-            const el = document.getElementById(id);
-            if (el) el.innerHTML = val.toLocaleString('id-ID');
+        const fillSelect = (id, values, defaultText) => {
+            const select = document.getElementById(id);
+            select.innerHTML = `<option value="">${defaultText}</option>`;
+            values.forEach(val => {
+                const opt = document.createElement('option');
+                opt.value = val;
+                opt.innerText = val;
+                select.appendChild(opt);
+            });
         };
 
-        if (skipAnimation) {
-            updateVal("kpi-total", total);
-            updateVal("kpi-belum-ltm", belumLtm);
-            updateVal("kpi-belum-do", belumDo);
-            updateVal("kpi-belum-keduanya", belumKeduanya);
-            updateVal("kpi-sudah-ltm", ltmSelesai);
-            updateVal("kpi-sudah-do", doSelesai);
-            updateVal("kpi-sudah-keduanya", sudahKeduanya);
-            updateVal("kpi-total-belum-all", belumKeduanya);
-            updateVal("kpi-total-sudah-all", sudahKeduanya);
-        } else {
-            animateValue("kpi-total", 0, total, 1000);
-            animateValue("kpi-belum-ltm", 0, belumLtm, 1000);
-            animateValue("kpi-belum-do", 0, belumDo, 1000);
-            animateValue("kpi-belum-keduanya", 0, belumKeduanya, 1000);
-            animateValue("kpi-sudah-ltm", 0, ltmSelesai, 1000);
-            animateValue("kpi-sudah-do", 0, doSelesai, 1000);
-            animateValue("kpi-sudah-keduanya", 0, sudahKeduanya, 1000);
-            animateValue("kpi-total-belum-all", 0, belumKeduanya, 1000);
-            animateValue("kpi-total-sudah-all", 0, sudahKeduanya, 1000);
+        fillSelect('filterKecamatan', Array.from(kecSet).sort(), 'Semua Kecamatan');
+        fillSelect('filterBentuk', Array.from(bentukSet).sort(), 'Semua Jenjang');
+        fillSelect('filterStatus', Array.from(statusSet).sort(), 'Semua Status');
+
+        const sortedIssues = Object.keys(issueCounts).sort((a, b) => issueCounts[b] - issueCounts[a]);
+        const masalahSelect = document.getElementById('filterMasalah');
+        masalahSelect.innerHTML = `<option value="">Semua Masalah Residu</option>`;
+        sortedIssues.forEach(cat => {
+            const opt = document.createElement('option');
+            opt.value = cat;
+            opt.innerText = `${cat} (${issueCounts[cat]})`;
+            masalahSelect.appendChild(opt);
+        });
+    }
+
+    function resetFilters() {
+        const role = localStorage.getItem('userRole') || '';
+        document.getElementById('searchInput').value = '';
+        document.getElementById('filterBentuk').value = '';
+        document.getElementById('filterStatus').value = '';
+        document.getElementById('filterMasalah').value = '';
+        if (role.toLowerCase() === 'admin') {
+            document.getElementById('filterKecamatan').value = '';
         }
+        setActiveCard(document.getElementById('kpiCardAll'));
+        currentPage = 1;
+        renderAll();
+    }
+
+    function quickFilterStatus(statusVal, cardEl) {
+        const statusSelect = document.getElementById('filterStatus');
+        if (statusVal && statusSelect.value === statusVal) {
+            statusSelect.value = '';
+            setActiveCard(document.getElementById('kpiCardAll'));
+        } else {
+            statusSelect.value = statusVal;
+            setActiveCard(cardEl);
+        }
+        currentPage = 1;
+        renderAll();
+    }
+
+    function focusSchoolTable(cardEl) {
+        setActiveCard(cardEl);
+        switchView('schools');
+        document.getElementById('tableCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function syncCardHighlightFromFilter() {
+        const fStatus = document.getElementById('filterStatus').value;
+        if (fStatus.toLowerCase() === 'negeri') setActiveCard(document.getElementById('kpiCardNegeri'));
+        else if (fStatus.toLowerCase() === 'swasta') setActiveCard(document.getElementById('kpiCardSwasta'));
+        else setActiveCard(document.getElementById('kpiCardAll'));
+    }
+
+    function setActiveCard(element) {
+        if (!element) return;
+        const cards = document.querySelectorAll('.kpi-card');
+        cards.forEach(card => {
+            card.classList.remove('bg-[#E8F2EF]', 'border-transparent', 'hover:bg-[#dcece7]', 'dark:bg-emerald-900/30', 'dark:hover:bg-emerald-900/50', 'dark:border-transparent');
+            card.classList.add('bg-white', 'border-cardBorder', 'hover:bg-gray-50', 'dark:bg-slate-800', 'dark:border-slate-700', 'dark:hover:bg-slate-700/60');
+        });
+
+        element.classList.remove('bg-white', 'border-cardBorder', 'hover:bg-gray-50', 'dark:bg-slate-800', 'dark:border-slate-700', 'dark:hover:bg-slate-700/60');
+        element.classList.add('bg-[#E8F2EF]', 'border-transparent', 'hover:bg-[#dcece7]', 'dark:bg-emerald-900/30', 'dark:hover:bg-emerald-900/50', 'dark:border-transparent');
+    }
+
+    function getActiveFilters() {
+        return {
+            term: (document.getElementById('searchInput').value || '').trim().toLowerCase(),
+            kec: document.getElementById('filterKecamatan').value,
+            bentuk: document.getElementById('filterBentuk').value,
+            status: document.getElementById('filterStatus').value,
+            masalah: document.getElementById('filterMasalah').value
+        };
+    }
+
+    function filterStudentRows() {
+        const f = getActiveFilters();
+        return globalData.filter(row => {
+            if (f.kec && row.kecamatan !== f.kec) return false;
+            if (f.bentuk && row.bentuk !== f.bentuk) return false;
+            if (f.status && row.status !== f.status) return false;
+            if (f.masalah && !row.issueCategories.includes(f.masalah)) return false;
+            if (f.term) {
+                const match =
+                    row.npsn.toLowerCase().includes(f.term) ||
+                    row.namaSekolah.toLowerCase().includes(f.term) ||
+                    row.namaSiswa.toLowerCase().includes(f.term) ||
+                    row.nisn.toLowerCase().includes(f.term) ||
+                    row.nik.toLowerCase().includes(f.term) ||
+                    row.masalahRaw.toLowerCase().includes(f.term);
+                if (!match) return false;
+            }
+            return true;
+        });
+    }
+
+    function aggregateSchools(students) {
+        const map = new Map();
+        students.forEach(s => {
+            const key = `${s.npsn || s.namaSekolah}||${s.kecamatan}`;
+            if (!map.has(key)) {
+                map.set(key, {
+                    key,
+                    npsn: s.npsn,
+                    nama: s.namaSekolah,
+                    bentuk: s.bentuk,
+                    status: s.status,
+                    kecamatan: s.kecamatan,
+                    jumlahResidu: 0,
+                    students: [],
+                    issueCounts: {}
+                });
+            }
+            const entry = map.get(key);
+            entry.jumlahResidu += 1;
+            entry.students.push(s);
+            s.issueCategories.forEach(cat => {
+                entry.issueCounts[cat] = (entry.issueCounts[cat] || 0) + 1;
+            });
+        });
+
+        const arr = Array.from(map.values());
+        arr.sort((a, b) => {
+            let cmp = 0;
+            if (schoolSort.field === 'jumlahResidu') {
+                cmp = a.jumlahResidu - b.jumlahResidu;
+                if (cmp === 0) cmp = a.nama.localeCompare(b.nama, 'id');
+            } else if (schoolSort.field === 'kecamatan') {
+                cmp = a.kecamatan.localeCompare(b.kecamatan, 'id');
+                if (cmp === 0) cmp = a.nama.localeCompare(b.nama, 'id');
+            } else {
+                cmp = a.nama.localeCompare(b.nama, 'id');
+            }
+            return schoolSort.dir === 'asc' ? cmp : -cmp;
+        });
+        return arr;
+    }
+
+    function buildFilteredHistory() {
+        const f = getActiveFilters();
+        const matchedNpsns = new Set(currentFilteredStudents.map(s => s.npsn).filter(Boolean));
+
+        return (globalHistory || []).map(h => {
+            let totalResidu = 0;
+            let totalSchools = 0;
+
+            (h.schools || []).forEach(sch => {
+                if (f.kec && sch.kecamatan !== f.kec) return;
+                if (f.bentuk && sch.bentuk !== f.bentuk) return;
+                if (f.status && sch.status !== f.status) return;
+
+                if (f.term) {
+                    const directMatch =
+                        (sch.npsn || '').toLowerCase().includes(f.term) ||
+                        (sch.nama || '').toLowerCase().includes(f.term);
+                    const studentSchoolMatch = sch.npsn && matchedNpsns.has(sch.npsn);
+                    if (!directMatch && !studentSchoolMatch) return;
+                }
+
+                const count = f.masalah
+                    ? ((sch.issues && sch.issues[f.masalah]) || 0)
+                    : (sch.jumlahResidu || 0);
+
+                if (count > 0) {
+                    totalResidu += count;
+                    totalSchools += 1;
+                }
+            });
+
+            return { date: h.date, totalResidu, totalSchools };
+        });
+    }
+
+    function renderAll() {
+        currentFilteredStudents = filterStudentRows();
+        currentFilteredSchools = aggregateSchools(currentFilteredStudents);
+
+        const isFirstRender = typeof window.kpiRendered === 'undefined';
+        calculateKPIs(currentFilteredStudents, currentFilteredSchools, !isFirstRender);
+        window.kpiRendered = true;
+
+        renderActiveFilterBadges();
+        renderCharts(currentFilteredStudents, buildFilteredHistory());
+        renderTableOnly();
+    }
+
+    function calculateKPIs(students, schools, skipAnimation = false) {
+        const totalResidu = students.length;
+        const totalSekolah = schools.length;
+
+        let negeri = 0, swasta = 0;
+        students.forEach(s => {
+            if (s.status.toLowerCase() === 'negeri') negeri++;
+            else swasta++;
+        });
+
+        let sekolahNegeri = 0, sekolahSwasta = 0;
+        schools.forEach(sc => {
+            if (sc.status.toLowerCase() === 'negeri') sekolahNegeri++;
+            else sekolahSwasta++;
+        });
+
+        const setMetric = (id, val) => {
+            if (skipAnimation) {
+                if (animTimers[id]) clearInterval(animTimers[id]);
+                const el = document.getElementById(id);
+                if (el) el.innerText = val.toLocaleString('id-ID');
+            } else {
+                animateValue(id, 0, val, 700);
+            }
+        };
+
+        setMetric('kpi-total-residu', totalResidu);
+        setMetric('kpi-negeri', negeri);
+        setMetric('kpi-swasta', swasta);
+        setMetric('kpi-total-sekolah', totalSekolah);
+        setMetric('kpi-sekolah-negeri', sekolahNegeri);
+        setMetric('kpi-sekolah-swasta', sekolahSwasta);
+        setMetric('kpi-residu-negeri', negeri);
+        setMetric('kpi-negeri-sekolah-cnt', sekolahNegeri);
+        setMetric('kpi-residu-swasta', swasta);
+        setMetric('kpi-swasta-sekolah-cnt', sekolahSwasta);
+
+        document.getElementById('badgeSchoolCount').innerText = totalSekolah.toLocaleString('id-ID');
+        document.getElementById('badgeStudentCount').innerText = totalResidu.toLocaleString('id-ID');
     }
 
     function animateValue(id, start, end, duration) {
-        if (start === end) return;
-        let range = end - start;
-        let current = start;
-        let increment = end > start ? 1 : -1;
-        let stepTime = Math.abs(Math.floor(duration / range));
-        if(stepTime < 20) stepTime = 20; 
-        
-        let obj = document.getElementById(id);
-        if(!obj) return;
-        let timer = setInterval(function() {
-            current += increment;
-            if(range > 100 && Math.abs(end - current) > 10) current += Math.floor(range/50);
-            
-            if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
-                current = end;
-                clearInterval(timer);
+        const obj = document.getElementById(id);
+        if (!obj) return;
+        if (animTimers[id]) clearInterval(animTimers[id]);
+        if (start === end) {
+            obj.innerText = end.toLocaleString('id-ID');
+            return;
+        }
+        const steps = 25;
+        const stepTime = Math.max(16, Math.floor(duration / steps));
+        let step = 0;
+        animTimers[id] = setInterval(() => {
+            step++;
+            const val = step >= steps ? end : Math.round(start + (end - start) * (step / steps));
+            obj.innerText = val.toLocaleString('id-ID');
+            if (step >= steps) {
+                clearInterval(animTimers[id]);
+                delete animTimers[id];
             }
-            obj.innerHTML = current.toLocaleString('id-ID');
         }, stepTime);
     }
 
-    function renderTable() {
+    function renderActiveFilterBadges() {
+        const container = document.getElementById('activeFiltersContainer');
+        if (!container) return;
+        const f = getActiveFilters();
+        const badgeClass = "px-2.5 py-1 bg-gray-100 text-gray-600 dark:bg-slate-700 dark:text-slate-300 rounded-full border border-gray-200 dark:border-slate-600 flex items-center gap-1";
+        const badges = [];
+
+        if (f.kec) badges.push(`<span class="${badgeClass}"><i data-feather="map-pin" class="w-3 h-3"></i> Kec. ${escapeHtml(f.kec)}</span>`);
+        if (f.bentuk) badges.push(`<span class="${badgeClass}"><i data-feather="book-open" class="w-3 h-3"></i> ${escapeHtml(f.bentuk)}</span>`);
+        if (f.status) badges.push(`<span class="${badgeClass}"><i data-feather="shield" class="w-3 h-3"></i> ${escapeHtml(f.status)}</span>`);
+        if (f.masalah) badges.push(`<span class="${badgeClass}"><i data-feather="alert-circle" class="w-3 h-3"></i> ${escapeHtml(f.masalah)}</span>`);
+        if (f.term) badges.push(`<span class="${badgeClass}"><i data-feather="search" class="w-3 h-3"></i> "${escapeHtml(f.term)}"</span>`);
+
+        container.innerHTML = badges.length === 0
+            ? `<span class="${badgeClass}"><i data-feather="filter" class="w-3 h-3"></i> Semua Data</span>`
+            : badges.join('');
+        feather.replace();
+    }
+
+    function switchView(view) {
+        activeView = view;
+        currentPage = 1;
+
+        const tabSchools = document.getElementById('tabSchools');
+        const tabStudents = document.getElementById('tabStudents');
+        const badgeSchools = document.getElementById('badgeSchoolCount');
+        const badgeStudents = document.getElementById('badgeStudentCount');
+
+        const activeBtnCls = ['bg-primary', 'text-white', 'shadow-sm'];
+        const inactiveBtnCls = ['text-textGray', 'dark:text-slate-400', 'hover:text-dark', 'dark:hover:text-white'];
+        const activeBadgeCls = ['bg-white/20', 'text-white'];
+        const inactiveBadgeCls = ['bg-gray-200', 'dark:bg-slate-700', 'text-dark', 'dark:text-slate-200'];
+
+        if (view === 'schools') {
+            tabSchools.classList.add(...activeBtnCls);
+            tabSchools.classList.remove(...inactiveBtnCls);
+            tabStudents.classList.remove(...activeBtnCls);
+            tabStudents.classList.add(...inactiveBtnCls);
+
+            badgeSchools.classList.add(...activeBadgeCls);
+            badgeSchools.classList.remove(...inactiveBadgeCls);
+            badgeStudents.classList.remove(...activeBadgeCls);
+            badgeStudents.classList.add(...inactiveBadgeCls);
+        } else {
+            tabStudents.classList.add(...activeBtnCls);
+            tabStudents.classList.remove(...inactiveBtnCls);
+            tabSchools.classList.remove(...activeBtnCls);
+            tabSchools.classList.add(...inactiveBtnCls);
+
+            badgeStudents.classList.add(...activeBadgeCls);
+            badgeStudents.classList.remove(...inactiveBadgeCls);
+            badgeSchools.classList.remove(...activeBadgeCls);
+            badgeSchools.classList.add(...inactiveBadgeCls);
+        }
+
+        renderTableOnly();
+    }
+
+    function toggleSchoolSort(field) {
+        if (schoolSort.field === field) {
+            schoolSort.dir = schoolSort.dir === 'asc' ? 'desc' : 'asc';
+        } else {
+            schoolSort.field = field;
+            schoolSort.dir = field === 'jumlahResidu' ? 'desc' : 'asc';
+        }
+        currentFilteredSchools = aggregateSchools(currentFilteredStudents);
+        currentPage = 1;
+        renderTableOnly();
+    }
+
+    function renderSortIcon(field) {
+        if (schoolSort.field !== field) return '<span class="opacity-30 ml-1">⇅</span>';
+        return schoolSort.dir === 'asc'
+            ? '<span class="text-primary ml-1">▲</span>'
+            : '<span class="text-primary ml-1">▼</span>';
+    }
+
+    function renderTableOnly() {
+        const thead = document.getElementById('tableHead');
         const tbody = document.getElementById('tableBody');
         tbody.innerHTML = '';
 
-        const searchInput = document.getElementById('searchInput');
-        const term = searchInput ? searchInput.value.toLowerCase() : '';
-        
-        const fWil = document.getElementById('filterWilayah').value;
-        const fKec = document.getElementById('filterKecamatan').value;
-        const fDesa = document.getElementById('filterDesa').value;
-        const fStat = document.getElementById('filterStatus').value;
+        if (activeView === 'schools') {
+            thead.innerHTML = `
+                <tr class="text-textGray dark:text-slate-400 text-[12px] uppercase tracking-wider border-b border-gray-200 dark:border-slate-700">
+                    <th class="py-3 px-2 font-bold w-12">No</th>
+                    <th class="py-3 px-2 font-bold cursor-pointer select-none hover:text-primary" onclick="toggleSchoolSort('kecamatan')">Kecamatan ${renderSortIcon('kecamatan')}</th>
+                    <th class="py-3 px-2 font-bold">NPSN</th>
+                    <th class="py-3 px-2 font-bold cursor-pointer select-none hover:text-primary" onclick="toggleSchoolSort('nama')">Nama Satuan Pendidikan ${renderSortIcon('nama')}</th>
+                    <th class="py-3 px-2 font-bold text-center">Jenjang</th>
+                    <th class="py-3 px-2 font-bold text-center">Status</th>
+                    <th class="py-3 px-2 font-bold text-center cursor-pointer select-none hover:text-primary" onclick="toggleSchoolSort('jumlahResidu')">Jumlah Residu ${renderSortIcon('jumlahResidu')}</th>
+                    <th class="py-3 px-2 font-bold text-center">Aksi</th>
+                </tr>
+            `;
 
-        const activeFiltersContainer = document.getElementById('activeFiltersContainer');
-        if (activeFiltersContainer) {
-            let badges = [];
-            const badgeClass = "px-2.5 py-1 bg-gray-100 text-gray-600 dark:bg-slate-700 dark:text-slate-300 rounded-full border border-gray-200 dark:border-slate-600 flex items-center gap-1";
-            
-            if (fWil) {
-                badges.push(`<span class="${badgeClass}"><i data-feather="map" class="w-3 h-3"></i> ${fWil}</span>`);
-            }
-            if (fKec) {
-                badges.push(`<span class="${badgeClass}"><i data-feather="map-pin" class="w-3 h-3"></i> Kec. ${fKec}</span>`);
-            }
-            if (fDesa) {
-                badges.push(`<span class="${badgeClass}"><i data-feather="home" class="w-3 h-3"></i> ${fDesa}</span>`);
-            }
-            if (fStat === 'belum') {
-                badges.push(`<span class="${badgeClass}"><i data-feather="alert-circle" class="w-3 h-3"></i> Belum Verifikasi</span>`);
-            } else if (fStat === 'selesai') {
-                badges.push(`<span class="${badgeClass}"><i data-feather="check-circle" class="w-3 h-3"></i> Sudah Verifikasi</span>`);
-            }
-            if (term) {
-                badges.push(`<span class="${badgeClass}"><i data-feather="search" class="w-3 h-3"></i> "${term}"</span>`);
+            const totalRows = currentFilteredSchools.length;
+            const totalPages = Math.ceil(totalRows / rowsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * rowsPerPage;
+            const endIndex = Math.min(startIndex + rowsPerPage, totalRows);
+            const displayData = currentFilteredSchools.slice(startIndex, endIndex);
+
+            updateTableFooter(totalRows, startIndex, endIndex, totalPages, 'sekolah');
+
+            if (displayData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" class="py-10 text-center text-textGray text-[13px] font-bold">Tidak ada data sekolah yang cocok dengan filter.</td></tr>`;
+                return;
             }
 
-            if (badges.length === 0) {
-                activeFiltersContainer.innerHTML = `<span class="${badgeClass}"><i data-feather="filter" class="w-3 h-3"></i> Semua Data</span>`;
-            } else {
-                activeFiltersContainer.innerHTML = badges.join('');
+            displayData.forEach((sch, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-emerald-100/75 dark:hover:bg-emerald-900/40 transition-colors duration-150 cursor-pointer group";
+                tr.onclick = () => openSchoolModal(sch.key);
+
+                const jenjangBadge = sch.bentuk.toUpperCase() === 'SMP'
+                    ? 'bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-300'
+                    : 'bg-orange-50 text-orange-600 dark:bg-orange-500/15 dark:text-orange-300';
+
+                const statusBadge = sch.status.toLowerCase() === 'negeri'
+                    ? 'bg-emerald-50 text-primary dark:bg-emerald-500/15 dark:text-emerald-300'
+                    : 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300';
+
+                tr.innerHTML = `
+                    <td class="py-3.5 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-textGray dark:text-slate-400">${startIndex + idx + 1}</td>
+                    <td class="py-3.5 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-dark dark:text-slate-100">${escapeHtml(sch.kecamatan || '-')}</td>
+                    <td class="py-3.5 px-2 font-bold text-[13px] border-b border-gray-100 dark:border-slate-700 text-dark dark:text-slate-100 whitespace-nowrap font-mono">${escapeHtml(sch.npsn || '-')}</td>
+                    <td class="py-3.5 px-2 font-bold text-[13px] border-b border-gray-100 dark:border-slate-700 text-dark dark:text-slate-100 group-hover:text-primary transition-colors">${escapeHtml(sch.nama || '-')}</td>
+                    <td class="py-3.5 px-2 text-center border-b border-gray-100 dark:border-slate-700">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold ${jenjangBadge}">${escapeHtml(sch.bentuk || '-')}</span>
+                    </td>
+                    <td class="py-3.5 px-2 text-center border-b border-gray-100 dark:border-slate-700">
+                        <span class="px-2.5 py-1 rounded-full text-[11px] font-bold ${statusBadge}">${escapeHtml(sch.status || '-')}</span>
+                    </td>
+                    <td class="py-3.5 px-2 text-center border-b border-gray-100 dark:border-slate-700">
+                        <span class="inline-flex items-center justify-center min-w-[36px] px-2.5 py-1 rounded-full text-[13px] font-extrabold bg-red-50 text-red-600 dark:bg-red-500/15 dark:text-red-400">${sch.jumlahResidu.toLocaleString('id-ID')}</span>
+                    </td>
+                    <td class="py-3.5 px-2 text-center border-b border-gray-100 dark:border-slate-700">
+                        <button type="button" class="btn-school-detail inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-bold bg-primary/10 text-primary hover:bg-primary hover:text-white dark:bg-primary/20 dark:text-emerald-300 dark:hover:bg-primary dark:hover:text-white transition-colors cursor-pointer">
+                            <i data-feather="eye" class="w-3.5 h-3.5"></i>
+                            <span>Detail</span>
+                        </button>
+                    </td>
+                `;
+                const detailBtn = tr.querySelector('.btn-school-detail');
+                if (detailBtn) {
+                    detailBtn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        openSchoolModal(sch.key);
+                    });
+                }
+                tbody.appendChild(tr);
+            });
+        } else {
+            thead.innerHTML = `
+                <tr class="text-textGray dark:text-slate-400 text-[12px] uppercase tracking-wider border-b border-gray-200 dark:border-slate-700">
+                    <th class="py-3 px-2 font-bold w-12">No</th>
+                    <th class="py-3 px-2 font-bold">Kecamatan</th>
+                    <th class="py-3 px-2 font-bold">NPSN</th>
+                    <th class="py-3 px-2 font-bold">Satuan Pendidikan</th>
+                    <th class="py-3 px-2 font-bold">Nama Peserta Didik</th>
+                    <th class="py-3 px-2 font-bold whitespace-nowrap">NISN / NIK</th>
+                    <th class="py-3 px-2 font-bold">Masalah Residu</th>
+                </tr>
+            `;
+
+            const totalRows = currentFilteredStudents.length;
+            const totalPages = Math.ceil(totalRows / rowsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * rowsPerPage;
+            const endIndex = Math.min(startIndex + rowsPerPage, totalRows);
+            const displayData = currentFilteredStudents.slice(startIndex, endIndex);
+
+            updateTableFooter(totalRows, startIndex, endIndex, totalPages, 'peserta didik');
+
+            if (displayData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="7" class="py-10 text-center text-textGray text-[13px] font-bold">Tidak ada data peserta didik yang cocok dengan filter.</td></tr>`;
+                return;
             }
-            feather.replace();
-        }
 
-        let filteredData = globalData.filter(row => {
-            const matchesSearch = term === '' || 
-                (row['NPSN'] && row['NPSN'].toString().toLowerCase().includes(term)) ||
-                (row['Nama Sekolah'] && row['Nama Sekolah'].toString().toLowerCase().includes(term));
-            
-            const rWil = row['Wilayah'] || '';
-            const rKec = row['Kecamatan'] || '';
-            const rDesa = row['Desa/Kelurahan'] || row['Desa'] || row['Kelurahan'] || '';
-            
-            const matchesWil = fWil === "" || rWil === fWil;
-            const matchesKec = fKec === "" || rKec === fKec;
-            const matchesDesa = fDesa === "" || rDesa === fDesa;
+            displayData.forEach((row, idx) => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-emerald-100/75 dark:hover:bg-emerald-900/40 transition-colors duration-150";
 
-            let matchesStat = true;
-            if (fStat === 'belum') {
-                matchesStat = (parseInt(row['Belum Verifikasi (LTM+DO)']) || 0) > 0;
-            } else if (fStat === 'selesai') {
-                matchesStat = (parseInt(row['Belum Verifikasi (LTM+DO)']) || 0) === 0;
-            }
-            
-            return matchesSearch && matchesWil && matchesKec && matchesDesa && matchesStat;
-        });
+                const issuesHtml = row.issues.map(iss => `
+                    <div class="inline-flex items-baseline gap-1 px-2 py-0.5 rounded-md text-[11px] border mb-1 mr-1 ${getIssueBadgeColor(iss.category)}" title="${escapeHtml(iss.raw)}">
+                        <span class="font-extrabold">${escapeHtml(iss.category)}${iss.detail ? ':' : ''}</span>
+                        ${iss.detail ? `<span class="font-medium opacity-90">${escapeHtml(iss.detail)}</span>` : ''}
+                    </div>
+                `).join('');
 
-        let filteredHistory = [];
-        if (globalHistory) {
-            filteredHistory = globalHistory.map(h => {
-                const hFiltered = h.data.filter(row => {
-                    const matchesSearch = term === '' || 
-                        (row['NPSN'] && row['NPSN'].toString().toLowerCase().includes(term)) ||
-                        (row['Nama Sekolah'] && row['Nama Sekolah'].toString().toLowerCase().includes(term));
-                    
-                    const rWil = row['Wilayah'] || '';
-                    const rKec = row['Kecamatan'] || '';
-                    const rDesa = row['Desa/Kelurahan'] || row['Desa'] || row['Kelurahan'] || '';
-                    
-                    const matchesWil = fWil === "" || rWil === fWil;
-                    const matchesKec = fKec === "" || rKec === fKec;
-                    const matchesDesa = fDesa === "" || rDesa === fDesa;
+                const nisnDisplay = row.nisn
+                    ? `<span class="font-mono text-dark dark:text-slate-100">${escapeHtml(row.nisn)}</span>`
+                    : `<span class="text-red-500 text-[11px] font-bold">NISN Kosong</span>`;
+                const nikDisplay = row.nik
+                    ? `<span class="font-mono text-textGray dark:text-slate-400">${escapeHtml(row.nik)}</span>`
+                    : `<span class="text-red-500 text-[11px] font-bold">NIK Kosong</span>`;
 
-                    let matchesStat = true;
-                    if (fStat === 'belum') {
-                        matchesStat = (parseInt(row['Belum Verifikasi (LTM+DO)']) || 0) > 0;
-                    } else if (fStat === 'selesai') {
-                        matchesStat = (parseInt(row['Belum Verifikasi (LTM+DO)']) || 0) === 0;
-                    }
-                    
-                    return matchesSearch && matchesWil && matchesKec && matchesDesa && matchesStat;
-                });
-                return { date: h.date, data: hFiltered };
+                tr.innerHTML = `
+                    <td class="py-3.5 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-textGray dark:text-slate-400 align-top">${startIndex + idx + 1}</td>
+                    <td class="py-3.5 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-dark dark:text-slate-100 align-top whitespace-nowrap">${escapeHtml(row.kecamatan || '-')}</td>
+                    <td class="py-3.5 px-2 font-bold text-[13px] border-b border-gray-100 dark:border-slate-700 text-dark dark:text-slate-100 align-top whitespace-nowrap font-mono">${escapeHtml(row.npsn || '-')}</td>
+                    <td class="py-3.5 px-2 border-b border-gray-100 dark:border-slate-700 align-top">
+                        <div class="font-bold text-[13px] text-dark dark:text-slate-100">${escapeHtml(row.namaSekolah || '-')}</div>
+                        <div class="text-[11px] font-semibold text-textGray dark:text-slate-400 mt-0.5">${escapeHtml(row.bentuk)} &middot; ${escapeHtml(row.status)}</div>
+                    </td>
+                    <td class="py-3.5 px-2 font-bold text-[13px] border-b border-gray-100 dark:border-slate-700 text-dark dark:text-slate-100 align-top">${escapeHtml(row.namaSiswa || '-')}</td>
+                    <td class="py-3.5 px-2 text-[12px] border-b border-gray-100 dark:border-slate-700 align-top whitespace-nowrap">
+                        <div><span class="text-[10px] font-bold text-textGray uppercase mr-1">NISN</span>${nisnDisplay}</div>
+                        <div class="mt-0.5"><span class="text-[10px] font-bold text-textGray uppercase mr-1">NIK&nbsp;&nbsp;</span>${nikDisplay}</div>
+                    </td>
+                    <td class="py-3.5 px-2 border-b border-gray-100 dark:border-slate-700 align-top max-w-[380px]">
+                        <div class="flex flex-wrap">${issuesHtml}</div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
             });
         }
-        
-        const isFirstRender = typeof window.kpiRendered === 'undefined';
-        calculateKPIs(filteredData, !isFirstRender);
-        renderChart(filteredHistory);
-        window.kpiRendered = true;
 
-        const totalRows = filteredData.length;
-        const totalPages = Math.ceil(totalRows / rowsPerPage) || 1;
-        if (currentPage > totalPages) currentPage = totalPages;
-        if (currentPage < 1) currentPage = 1;
+        feather.replace();
+    }
 
-        const startIndex = (currentPage - 1) * rowsPerPage;
-        const endIndex = Math.min(startIndex + rowsPerPage, totalRows);
-
-        const displayData = filteredData.slice(startIndex, endIndex);
-
+    function updateTableFooter(totalRows, startIndex, endIndex, totalPages, unitLabel) {
         const tableInfo = document.getElementById('tableInfo');
         if (tableInfo) {
             if (totalRows === 0) {
-                tableInfo.innerText = "Menampilkan 0 data";
+                tableInfo.innerText = `Menampilkan 0 ${unitLabel}`;
             } else {
-                tableInfo.innerText = `Menampilkan ${startIndex + 1} sampai ${endIndex} dari ${totalRows.toLocaleString('id-ID')} data`;
+                tableInfo.innerText = `Menampilkan ${startIndex + 1} sampai ${endIndex} dari ${totalRows.toLocaleString('id-ID')} ${unitLabel}`;
             }
         }
-
         renderPagination(totalPages);
-
-        if (displayData.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="${showExtraColumns ? 12 : 8}" class="py-10 text-center text-textGray text-[13px] font-bold">No data found matching your search.</td></tr>`;
-            return;
-        }
-
-        displayData.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.className = "hover:bg-surface/50 dark:hover:bg-slate-700/50 transition-colors group";
-            
-            const isLTMSudah = (parseInt(row['Sudah Verifikasi (LTM)']) || 0) > 0;
-            const ltmDot = isLTMSudah ? 'bg-[#118263]' : 'bg-[#E2E8F0]';
-            const ltmText = isLTMSudah ? 'text-[#118263]' : 'text-gray-400';
-
-            const isDOSudah = (parseInt(row['Sudah Verifikasi (DO)']) || 0) > 0;
-            const doDot = isDOSudah ? 'bg-[#FF745A]' : 'bg-[#E2E8F0]';
-            const doText = isDOSudah ? 'text-[#FF745A]' : 'text-gray-400';
-
-            const isBoth = isLTMSudah && isDOSudah;
-
-            tr.innerHTML = `
-                <td class="py-4 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-dark dark:text-slate-100">
-                    ${row['Kecamatan'] || '-'}
-                </td>
-                <td class="py-4 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-textGray dark:text-slate-400">
-                    ${row['Desa/Kelurahan'] || row['Desa'] || row['Kelurahan'] || '-'}
-                </td>
-                <td class="py-4 px-2 font-bold text-[13px] text-dark dark:text-slate-100 border-b border-gray-100 dark:border-slate-700 whitespace-nowrap">
-                    ${row['NPSN'] || '-'}
-                </td>
-                <td class="py-4 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-dark dark:text-slate-100">
-                    ${row['Nama Sekolah'] || '-'}
-                </td>
-                <td class="py-4 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-textGray dark:text-slate-400 text-center">
-                    ${row['Belum Verifikasi (LTM)'] || '0'}
-                </td>
-                <td class="py-4 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-textGray dark:text-slate-400 text-center">
-                    ${row['Belum Verifikasi (DO)'] || '0'}
-                </td>
-                <td class="py-4 px-2 font-bold text-[13px] border-b border-gray-100 dark:border-slate-700 text-red-500 text-center">
-                    ${row['Belum Verifikasi (LTM+DO)'] || '0'}
-                </td>
-                ${showExtraColumns ? `
-                <td class="py-4 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-textGray dark:text-slate-400 text-center">
-                    ${row['Sudah Verifikasi (LTM)'] || '0'}
-                </td>
-                <td class="py-4 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-textGray dark:text-slate-400 text-center">
-                    ${row['Sudah Verifikasi (DO)'] || '0'}
-                </td>
-                <td class="py-4 px-2 font-bold text-[13px] border-b border-gray-100 dark:border-slate-700 text-primary text-center">
-                    ${row['Sudah Verifikasi (LTM+DO)'] || '0'}
-                </td>
-                <td class="py-4 px-2 font-bold text-[13px] border-b border-gray-100 dark:border-slate-700 text-blue-500 text-center">
-                    ${row['Total Keseluruhan'] || '0'}
-                </td>
-                ` : ''}
-                <td class="py-4 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-textGray dark:text-slate-400">
-                    ${row['Wilayah'] || '-'}
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-        
-        feather.replace();
     }
 
     function renderPagination(totalPages) {
         const pagination = document.getElementById('pagination');
         if (!pagination) return;
         pagination.innerHTML = '';
-        
         if (totalPages <= 1) return;
-        
+
         const createBtn = (text, disabled, active, onClick) => {
             const btn = document.createElement('button');
             btn.innerText = text;
@@ -907,60 +1145,162 @@
             } else {
                 btn.className = 'px-3 py-1.5 rounded-[6px] border border-gray-200 dark:border-slate-700 text-dark dark:text-slate-100 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors cursor-pointer';
             }
-            if (!disabled) {
-                btn.onclick = onClick;
-            }
+            if (!disabled) btn.onclick = onClick;
             return btn;
         };
 
-        pagination.appendChild(createBtn('Prev', currentPage === 1, false, () => { currentPage--; renderTable(); }));
-        
+        pagination.appendChild(createBtn('Prev', currentPage === 1, false, () => { currentPage--; renderTableOnly(); }));
+
         let startPage = Math.max(1, currentPage - 2);
         let endPage = Math.min(totalPages, currentPage + 2);
-        
-        for (let i = startPage; i <= endPage; i++) {
-            pagination.appendChild(createBtn(i, false, i === currentPage, () => { currentPage = i; renderTable(); }));
+
+        if (startPage > 1) {
+            pagination.appendChild(createBtn(1, false, false, () => { currentPage = 1; renderTableOnly(); }));
+            if (startPage > 2) {
+                const dots = document.createElement('span');
+                dots.className = 'px-1.5 text-textGray';
+                dots.innerText = '…';
+                pagination.appendChild(dots);
+            }
         }
-        
-        pagination.appendChild(createBtn('Next', currentPage === totalPages, false, () => { currentPage++; renderTable(); }));
+
+        for (let i = startPage; i <= endPage; i++) {
+            pagination.appendChild(createBtn(i, false, i === currentPage, () => { currentPage = i; renderTableOnly(); }));
+        }
+
+        if (endPage < totalPages) {
+            if (endPage < totalPages - 1) {
+                const dots = document.createElement('span');
+                dots.className = 'px-1.5 text-textGray';
+                dots.innerText = '…';
+                pagination.appendChild(dots);
+            }
+            pagination.appendChild(createBtn(totalPages, false, false, () => { currentPage = totalPages; renderTableOnly(); }));
+        }
+
+        pagination.appendChild(createBtn('Next', currentPage === totalPages, false, () => { currentPage++; renderTableOnly(); }));
     }
 
-    function setActiveCard(element) {
-        const cards = document.querySelectorAll('.kpi-card');
-        cards.forEach(card => {
-            card.classList.remove('bg-[#E8F2EF]', 'border-transparent', 'hover:bg-[#dcece7]', 'dark:bg-emerald-900/30', 'dark:hover:bg-emerald-900/50', 'dark:border-transparent');
-            card.classList.add('bg-white', 'border-cardBorder', 'hover:bg-gray-50', 'dark:bg-slate-800', 'dark:border-slate-700', 'dark:hover:bg-slate-750');
-        });
+    // Modal Functions
+    function openSchoolModal(schoolKey) {
+        const sch = currentFilteredSchools.find(s => s.key === schoolKey);
+        if (!sch) return;
+        activeModalSchool = sch;
 
-        element.classList.remove('bg-white', 'border-cardBorder', 'hover:bg-gray-50', 'dark:bg-slate-800', 'dark:border-slate-700', 'dark:hover:bg-slate-750');
-        element.classList.add('bg-[#E8F2EF]', 'border-transparent', 'hover:bg-[#dcece7]', 'dark:bg-emerald-900/30', 'dark:hover:bg-emerald-900/50', 'dark:border-transparent');
+        document.getElementById('modalSchoolName').innerText = sch.nama || '-';
+        document.getElementById('modalSchoolMeta').innerText = `NPSN: ${sch.npsn || '-'}  •  Kecamatan ${sch.kecamatan || '-'}`;
+
+        const jenjangBadge = sch.bentuk.toUpperCase() === 'SMP'
+            ? 'bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-300'
+            : 'bg-orange-50 text-orange-600 dark:bg-orange-500/15 dark:text-orange-300';
+        const statusBadge = sch.status.toLowerCase() === 'negeri'
+            ? 'bg-emerald-50 text-primary dark:bg-emerald-500/15 dark:text-emerald-300'
+            : 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300';
+
+        document.getElementById('modalSchoolBadges').innerHTML = `
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold ${jenjangBadge}">${escapeHtml(sch.bentuk || '-')}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold ${statusBadge}">${escapeHtml(sch.status || '-')}</span>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-extrabold bg-red-50 text-red-600 dark:bg-red-500/15 dark:text-red-400">${sch.jumlahResidu} Residu</span>
+        `;
+
+        document.getElementById('modalSearchInput').value = '';
+        renderModalStudents();
+
+        const modal = document.getElementById('schoolModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        feather.replace();
     }
 
-    function renderChart(history) {
-        if (!history || history.length === 0) return;
-        
-        const labels = history.map(h => h.date);
-        
-        const dataBelumKeduanya = [];
-        const dataSudahKeduanya = [];
+    function renderModalStudents() {
+        if (!activeModalSchool) return;
+        const term = (document.getElementById('modalSearchInput').value || '').trim().toLowerCase();
+        const tbody = document.getElementById('modalTableBody');
+        tbody.innerHTML = '';
 
-        history.forEach(h => {
-            let belumKeduanya = 0;
-            let sudahKeduanya = 0;
-            
-            h.data.forEach(row => {
-                let t = parseInt(row['Total Keseluruhan']) || 0;
-                
-                let sudahLTMDO = parseInt(row['Sudah Verifikasi (LTM+DO)']) || 0;
-                let bLTMDO = row['Belum Verifikasi (LTM+DO)'] !== undefined ? parseInt(row['Belum Verifikasi (LTM+DO)']) : (t - sudahLTMDO);
-
-                belumKeduanya += bLTMDO;
-                sudahKeduanya += sudahLTMDO;
-            });
-            
-            dataBelumKeduanya.push(belumKeduanya);
-            dataSudahKeduanya.push(sudahKeduanya);
+        const students = activeModalSchool.students.filter(s => {
+            if (!term) return true;
+            return (
+                s.namaSiswa.toLowerCase().includes(term) ||
+                s.nisn.toLowerCase().includes(term) ||
+                s.nik.toLowerCase().includes(term) ||
+                s.masalahRaw.toLowerCase().includes(term)
+            );
         });
+
+        document.getElementById('modalStudentCount').innerText = `Menampilkan ${students.length} dari ${activeModalSchool.students.length} peserta didik residu`;
+
+        if (students.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="4" class="py-8 text-center text-textGray text-[13px] font-bold">Tidak ada peserta didik yang cocok dengan pencarian.</td></tr>`;
+            return;
+        }
+
+        students.forEach((s, idx) => {
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-emerald-100/75 dark:hover:bg-emerald-900/40 transition-colors duration-150";
+
+            const issuesHtml = s.issues.map(iss => `
+                <div class="px-2.5 py-1 rounded-lg text-[12px] border mb-1.5 ${getIssueBadgeColor(iss.category)}">
+                    <span class="font-extrabold">${escapeHtml(iss.category)}${iss.detail ? ':' : ''}</span>
+                    ${iss.detail ? `<span class="font-medium ml-1">${escapeHtml(iss.detail)}</span>` : ''}
+                </div>
+            `).join('');
+
+            const nisnDisplay = s.nisn
+                ? `<span class="font-mono text-dark dark:text-slate-100">${escapeHtml(s.nisn)}</span>`
+                : `<span class="text-red-500 text-[11px] font-bold">Kosong</span>`;
+            const nikDisplay = s.nik
+                ? `<span class="font-mono text-textGray dark:text-slate-400">${escapeHtml(s.nik)}</span>`
+                : `<span class="text-red-500 text-[11px] font-bold">Kosong</span>`;
+
+            tr.innerHTML = `
+                <td class="py-3 px-2 font-semibold text-[13px] border-b border-gray-100 dark:border-slate-700 text-textGray align-top">${idx + 1}</td>
+                <td class="py-3 px-2 font-bold text-[13px] border-b border-gray-100 dark:border-slate-700 text-dark dark:text-slate-100 align-top">${escapeHtml(s.namaSiswa || '-')}</td>
+                <td class="py-3 px-2 text-[12px] border-b border-gray-100 dark:border-slate-700 align-top whitespace-nowrap">
+                    <div><span class="text-[10px] font-bold text-textGray uppercase mr-1">NISN</span>${nisnDisplay}</div>
+                    <div class="mt-0.5"><span class="text-[10px] font-bold text-textGray uppercase mr-1">NIK&nbsp;&nbsp;</span>${nikDisplay}</div>
+                </td>
+                <td class="py-3 px-2 border-b border-gray-100 dark:border-slate-700 align-top">${issuesHtml}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function closeSchoolModal() {
+        const modal = document.getElementById('schoolModal');
+        if (!modal) return;
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+    }
+
+    function handleModalBackdrop(event) {
+        if (event.target.id === 'schoolModal') closeSchoolModal();
+    }
+
+    function viewModalSchoolInStudentTab() {
+        if (!activeModalSchool) return;
+        const query = activeModalSchool.npsn || activeModalSchool.nama;
+        closeSchoolModal();
+        document.getElementById('searchInput').value = query;
+        switchView('students');
+        renderAll();
+    }
+
+    // Charts
+    function renderCharts(students, historySummary) {
+        renderTrendChart(historySummary);
+    }
+
+    function renderTrendChart(historySummary) {
+        const badge = document.getElementById('historyCountBadge');
+        if (badge) badge.innerText = `${(historySummary || []).length} Periode`;
+        if (!historySummary || historySummary.length === 0) return;
+
+        const labels = historySummary.map(h => h.date);
+        const dataResidu = historySummary.map(h => h.totalResidu);
+        const dataSekolah = historySummary.map(h => h.totalSchools);
 
         const ctx = document.getElementById('trendChart').getContext('2d');
         const isDark = document.documentElement.classList.contains('dark');
@@ -969,8 +1309,8 @@
 
         if (trendChart) {
             trendChart.data.labels = labels;
-            trendChart.data.datasets[0].data = dataBelumKeduanya;
-            trendChart.data.datasets[1].data = dataSudahKeduanya;
+            trendChart.data.datasets[0].data = dataResidu;
+            trendChart.data.datasets[1].data = dataSekolah;
             trendChart.options.scales.x.ticks.color = textColor;
             trendChart.options.scales.y.ticks.color = textColor;
             trendChart.options.scales.x.grid.color = gridColor;
@@ -984,20 +1324,24 @@
                     labels: labels,
                     datasets: [
                         {
-                            label: 'Belum Verifikasi (LTM+DO)',
-                            data: dataBelumKeduanya,
+                            label: 'Peserta Didik Residu',
+                            data: dataResidu,
                             borderColor: '#ef4444',
                             backgroundColor: '#ef444420',
-                            borderWidth: 2,
+                            borderWidth: 2.5,
+                            pointRadius: 5,
+                            pointHoverRadius: 7,
                             tension: 0.3,
                             fill: true
                         },
                         {
-                            label: 'Sudah Verifikasi (LTM+DO)',
-                            data: dataSudahKeduanya,
-                            borderColor: '#118263', // NevBank Green
+                            label: 'Sekolah Terdampak',
+                            data: dataSekolah,
+                            borderColor: '#118263',
                             backgroundColor: '#11826320',
-                            borderWidth: 2,
+                            borderWidth: 2.5,
+                            pointRadius: 5,
+                            pointHoverRadius: 7,
                             tension: 0.3,
                             fill: true
                         }
@@ -1006,22 +1350,24 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
                     scales: {
                         x: {
-                            ticks: { color: textColor, font: { family: 'Plus Jakarta Sans', weight: 'bold' } },
+                            ticks: { color: textColor, font: { family: 'Plus Jakarta Sans', weight: 'bold', size: 11 } },
                             grid: { color: gridColor, drawBorder: false }
                         },
                         y: {
-                            ticks: { color: textColor, font: { family: 'Plus Jakarta Sans', weight: 'bold' } },
+                            ticks: { color: textColor, font: { family: 'Plus Jakarta Sans', weight: 'bold', size: 11 } },
                             grid: { color: gridColor, drawBorder: false },
-                            beginAtZero: false
+                            beginAtZero: true
                         }
                     },
                     plugins: {
                         legend: {
                             labels: {
                                 color: textColor,
-                                font: { family: 'Plus Jakarta Sans', weight: 'bold' }
+                                usePointStyle: true,
+                                font: { family: 'Plus Jakarta Sans', weight: 'bold', size: 12 }
                             }
                         }
                     }
