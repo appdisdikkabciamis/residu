@@ -235,30 +235,24 @@
                 mouse.y = -9999;
             });
 
-            function animate(now) {
+            function animate() {
                 if (banner.clientWidth > 0 && (banner.clientWidth !== width || banner.clientHeight !== height || dots.length === 0)) {
                     buildGrid();
                 }
 
-                const t = ((now || performance.now()) - startTime) * 0.0025;
                 const isDark = document.documentElement.classList.contains('dark');
-                const baseAlpha = isDark ? 0.16 : 0.24;
+                const baseAlpha = isDark ? 0.14 : 0.22;
 
                 ctx.clearRect(0, 0, width, height);
 
                 for (let i = 0; i < dots.length; i++) {
                     const d = dots[i];
-                    // Gerakan gelombang otomatis yang terlihat jelas meski di dalam iframe
-                    const waveX = Math.sin(t + d.phaseX) * 4.2;
-                    const waveY = Math.cos(t * 0.9 + d.phaseY) * 3.6;
-                    const pulse = (Math.sin(t * 1.2 + d.phaseX) + 1) * 0.5; // 0..1
+                    let targetX = d.ox;
+                    let targetY = d.oy;
 
-                    let targetX = d.ox + waveX;
-                    let targetY = d.oy + waveY;
-
-                    // Reaksi menjauh & menyala saat kursor mendekat
-                    const dx = targetX - mouse.x;
-                    const dy = targetY - mouse.y;
+                    // Hanya bergerak & menyala saat kursor mendekat
+                    const dx = d.ox - mouse.x;
+                    const dy = d.oy - mouse.y;
                     const distSq = dx * dx + dy * dy;
                     let proximity = 0;
 
@@ -270,14 +264,14 @@
                         targetY += (dy / dist) * push;
                     }
 
-                    // Efek pegas halus kembali ke posisi gelombang
+                    // Efek pegas halus kembali ke titik diam
                     d.vx = (d.vx + (targetX - d.x) * 0.16) * 0.76;
                     d.vy = (d.vy + (targetY - d.y) * 0.16) * 0.76;
                     d.x += d.vx;
                     d.y += d.vy;
 
-                    const radius = 1.4 + (pulse * 0.65) + (proximity * 1.8);
-                    const alpha = Math.min(0.9, baseAlpha + (pulse * 0.14) + (proximity * 0.52));
+                    const radius = 1.5 + (proximity * 1.8);
+                    const alpha = Math.min(0.9, baseAlpha + (proximity * 0.55));
 
                     ctx.beginPath();
                     ctx.arc(d.x, d.y, radius, 0, Math.PI * 2);
