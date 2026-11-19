@@ -19,11 +19,13 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#118263', // NevBank Green
-                        dark: '#1C2633',
-                        surface: '#F5F7FA',
-                        textGray: '#8C97A7',
-                        cardBorder: '#EEF0F4',
+                        primary: '#1C4E8C',    // Dapodik Royal Blue (hsl 213 67% 33%)
+                        secondary: '#4787C7',  // Dapodik Sky Blue (hsl 210 52% 53%)
+                        accent: '#0D2754',     // Dapodik Deep Navy (hsl 217 73% 19%)
+                        dark: '#0B1F41',       // Dapodik Foreground (hsl 217 70% 15%)
+                        surface: '#EFF8FC',    // Dapodik Ice Blue Background (hsl 198 70% 97%)
+                        textGray: '#3E5274',   // Dapodik Muted Foreground (hsl 217 30% 35%)
+                        cardBorder: '#BFE5F2', // Dapodik Soft Sky Border (hsl 196 60% 85%)
                     },
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -53,7 +55,7 @@
         }
     </style>
 </head>
-<body class="bg-surface text-dark dark:bg-[#0f172a] dark:text-slate-100 font-sans min-h-screen transition-colors duration-300">
+<body class="bg-surface text-dark dark:bg-[#0B1324] dark:text-slate-100 font-sans min-h-screen transition-colors duration-300">
 
 <div class="max-w-[1440px] mx-auto p-4 md:p-8">
 
@@ -62,8 +64,8 @@
         <div class="flex items-center gap-12">
             <!-- Logo -->
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-[10px] bg-primary text-white flex items-center justify-center shrink-0 shadow-sm">
-                    <i data-feather="database" class="w-5 h-5"></i>
+                <div class="w-10 h-10 rounded-[10px] bg-gradient-to-br from-[#0D2754] via-[#1C4E8C] to-[#4787C7] text-white flex items-center justify-center shrink-0 shadow-sm">
+                    <i data-feather="user-check" class="w-5 h-5"></i>
                 </div>
                 <div class="flex flex-col">
                     <div class="text-[20px] font-extrabold tracking-tight leading-none">
@@ -78,7 +80,7 @@
 
         <!-- Profile & Actions -->
         <div class="flex items-center gap-3">
-            <button id="themeToggle" class="flex items-center justify-center w-8 h-8 rounded-full bg-primary hover:bg-emerald-700 text-white shadow-sm transition-colors" title="Toggle Dark Mode">
+            <button id="themeToggle" class="flex items-center justify-center w-8 h-8 rounded-full bg-primary hover:bg-[#153e70] text-white shadow-sm transition-colors" title="Toggle Dark Mode">
                 <i id="themeToggleIcon" data-feather="moon" class="w-4 h-4 text-white"></i>
             </button>
             <button onclick="logout()" class="flex items-center justify-center w-8 h-8 rounded-full bg-primary hover:bg-red-500 text-white shadow-sm transition-colors cursor-pointer" title="Logout">
@@ -101,7 +103,7 @@
     <!-- 4 KPI Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <!-- Card 1: Total Residu -->
-        <div id="kpiCardAll" class="kpi-card bg-[#E8F2EF] dark:bg-emerald-900/30 rounded-[20px] p-6 md:p-7 border border-transparent dark:border-transparent shadow-sm flex flex-col justify-between cursor-pointer hover:bg-[#dcece7] dark:hover:bg-emerald-900/50 transition-colors" onclick="quickFilterStatus('', this)">
+        <div id="kpiCardAll" class="kpi-card bg-[#DDF2F9] dark:bg-sky-900/35 rounded-[20px] p-6 md:p-7 border border-[#93C5FD] dark:border-sky-700/60 shadow-sm flex flex-col justify-between cursor-pointer hover:bg-[#cceaf6] dark:hover:bg-sky-900/50 transition-colors" onclick="quickFilterStatus('', this)">
             <div class="flex justify-between items-start mb-5">
                 <div>
                     <h4 class="font-bold text-[15px] mb-1 text-dark dark:text-slate-100">Total Residu Siswa</h4>
@@ -193,7 +195,7 @@
             <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
                 <div>
                     <h3 class="text-[17px] font-bold text-dark dark:text-slate-100">Grafik Pergerakan Data Residu</h3>
-                    <p class="text-[12px] font-medium text-textGray dark:text-slate-400 mt-0.5">Tren jumlah peserta didik residu &amp; sekolah terdampak per periode tanggal</p>
+                    <p class="text-[12px] font-medium text-textGray dark:text-slate-400 mt-0.5">Tren jumlah peserta didik residu &amp; sekolah beresidu per periode tanggal</p>
                 </div>
                 <span id="historyCountBadge" class="text-[11px] font-bold px-2.5 py-1 rounded-full bg-surface dark:bg-slate-700 text-textGray dark:text-slate-300 border border-gray-200 dark:border-slate-600">0 Periode</span>
             </div>
@@ -698,12 +700,12 @@
         if (!element) return;
         const cards = document.querySelectorAll('.kpi-card');
         cards.forEach(card => {
-            card.classList.remove('bg-[#E8F2EF]', 'border-transparent', 'hover:bg-[#dcece7]', 'dark:bg-emerald-900/30', 'dark:hover:bg-emerald-900/50', 'dark:border-transparent');
+            card.classList.remove('bg-[#DDF2F9]', 'border-[#93C5FD]', 'hover:bg-[#cceaf6]', 'dark:bg-sky-900/35', 'dark:hover:bg-sky-900/50', 'dark:border-sky-700/60');
             card.classList.add('bg-white', 'border-cardBorder', 'hover:bg-gray-50', 'dark:bg-slate-800', 'dark:border-slate-700', 'dark:hover:bg-slate-700/60');
         });
 
         element.classList.remove('bg-white', 'border-cardBorder', 'hover:bg-gray-50', 'dark:bg-slate-800', 'dark:border-slate-700', 'dark:hover:bg-slate-700/60');
-        element.classList.add('bg-[#E8F2EF]', 'border-transparent', 'hover:bg-[#dcece7]', 'dark:bg-emerald-900/30', 'dark:hover:bg-emerald-900/50', 'dark:border-transparent');
+        element.classList.add('bg-[#DDF2F9]', 'border-[#93C5FD]', 'hover:bg-[#cceaf6]', 'dark:bg-sky-900/35', 'dark:hover:bg-sky-900/50', 'dark:border-sky-700/60');
     }
 
     function getActiveFilters() {
@@ -1004,7 +1006,7 @@
 
             displayData.forEach((sch, idx) => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-emerald-100/75 dark:hover:bg-emerald-900/40 transition-colors duration-150 cursor-pointer group";
+                tr.className = "hover:bg-[#DDF2F9]/85 dark:hover:bg-sky-900/40 transition-colors duration-150 cursor-pointer group";
                 tr.onclick = () => openSchoolModal(sch.key);
 
                 const jenjangBadge = sch.bentuk.toUpperCase() === 'SMP'
@@ -1012,7 +1014,7 @@
                     : 'bg-orange-50 text-orange-600 dark:bg-orange-500/15 dark:text-orange-300';
 
                 const statusBadge = sch.status.toLowerCase() === 'negeri'
-                    ? 'bg-emerald-50 text-primary dark:bg-emerald-500/15 dark:text-emerald-300'
+                    ? 'bg-sky-50 text-primary dark:bg-sky-500/15 dark:text-sky-300'
                     : 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300';
 
                 tr.innerHTML = `
@@ -1030,7 +1032,7 @@
                         <span class="inline-flex items-center justify-center min-w-[36px] px-2.5 py-1 rounded-full text-[13px] font-extrabold bg-red-50 text-red-600 dark:bg-red-500/15 dark:text-red-400">${sch.jumlahResidu.toLocaleString('id-ID')}</span>
                     </td>
                     <td class="py-3.5 px-2 text-center border-b border-gray-100 dark:border-slate-700">
-                        <button type="button" class="btn-school-detail inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-bold bg-primary/10 text-primary hover:bg-primary hover:text-white dark:bg-primary/20 dark:text-emerald-300 dark:hover:bg-primary dark:hover:text-white transition-colors cursor-pointer">
+                        <button type="button" class="btn-school-detail inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-[12px] font-bold bg-primary/10 text-primary hover:bg-primary hover:text-white dark:bg-primary/25 dark:text-sky-300 dark:hover:bg-primary dark:hover:text-white transition-colors cursor-pointer">
                             <i data-feather="eye" class="w-3.5 h-3.5"></i>
                             <span>Detail</span>
                         </button>
@@ -1076,7 +1078,7 @@
 
             displayData.forEach((row, idx) => {
                 const tr = document.createElement('tr');
-                tr.className = "hover:bg-emerald-100/75 dark:hover:bg-emerald-900/40 transition-colors duration-150";
+                tr.className = "hover:bg-[#DDF2F9]/85 dark:hover:bg-sky-900/40 transition-colors duration-150";
 
                 const issuesHtml = row.issues.map(iss => `
                     <div class="inline-flex items-baseline gap-1 px-2 py-0.5 rounded-md text-[11px] border mb-1 mr-1 ${getIssueBadgeColor(iss.category)}" title="${escapeHtml(iss.raw)}">
@@ -1194,7 +1196,7 @@
             ? 'bg-blue-50 text-blue-600 dark:bg-blue-500/15 dark:text-blue-300'
             : 'bg-orange-50 text-orange-600 dark:bg-orange-500/15 dark:text-orange-300';
         const statusBadge = sch.status.toLowerCase() === 'negeri'
-            ? 'bg-emerald-50 text-primary dark:bg-emerald-500/15 dark:text-emerald-300'
+            ? 'bg-sky-50 text-primary dark:bg-sky-500/15 dark:text-sky-300'
             : 'bg-amber-50 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300';
 
         document.getElementById('modalSchoolBadges').innerHTML = `
@@ -1238,7 +1240,7 @@
 
         students.forEach((s, idx) => {
             const tr = document.createElement('tr');
-            tr.className = "hover:bg-emerald-100/75 dark:hover:bg-emerald-900/40 transition-colors duration-150";
+            tr.className = "hover:bg-[#DDF2F9]/85 dark:hover:bg-sky-900/40 transition-colors duration-150";
 
             const issuesHtml = s.issues.map(iss => `
                 <div class="px-2.5 py-1 rounded-lg text-[12px] border mb-1.5 ${getIssueBadgeColor(iss.category)}">
@@ -1335,10 +1337,10 @@
                             fill: true
                         },
                         {
-                            label: 'Sekolah Terdampak',
+                            label: 'Sekolah Beresidu',
                             data: dataSekolah,
-                            borderColor: '#118263',
-                            backgroundColor: '#11826320',
+                            borderColor: '#1C4E8C',
+                            backgroundColor: '#4787C725',
                             borderWidth: 2.5,
                             pointRadius: 5,
                             pointHoverRadius: 7,
